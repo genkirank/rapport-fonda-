@@ -1,0 +1,383 @@
+/* 
+  Styles specifically for the HTML-to-PDF rendering 
+  Targeting A4 aspect ratio and dark theme preservation 
+*/
+
+.pdf-template-container {
+    width: 210mm; /* A4 width */
+    background-color: #0c0f16; /* Dark background */
+    color: #d1d4dc;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+}
+
+.pdf-page {
+    width: 210mm;
+    min-height: 295mm; /* A4 height */
+    padding: 20mm;
+    box-sizing: border-box;
+    page-break-after: always;
+    position: relative;
+    background-color: #0c0f16 !important;
+}
+
+.pdf-page:last-child {
+    page-break-after: auto;
+}
+
+.pdf-header {
+    text-align: center;
+    border-bottom: 2px solid #2962ff;
+    padding-bottom: 10mm;
+    margin-bottom: 10mm;
+}
+
+.pdf-header h1 {
+    color: #ffffff;
+    font-size: 28px;
+    margin: 0 0 5px 0;
+    letter-spacing: 1px;
+}
+
+.pdf-header p {
+    color: #8a939f;
+    font-size: 14px;
+    margin: 0;
+}
+
+.pdf-section {
+    margin-bottom: 15mm;
+}
+
+.pdf-section h2 {
+    color: #ffffff;
+    font-size: 20px;
+    border-left: 4px solid #2962ff;
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
+
+.pdf-image-box {
+    width: 100%;
+    background-color: #131722;
+    border: 1px solid #2a2e39;
+    border-radius: 4px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15mm;
+}
+
+.pdf-image-box img {
+    max-width: 100%;
+    max-height: 120mm;
+    object-fit: contain;
+}
+
+.pdf-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10mm;
+}
+
+.pdf-card {
+    background-color: #131722;
+    border: 1px solid #2a2e39;
+    border-radius: 8px;
+    padding: 15px;
+    flex: 1;
+    min-width: 45%;
+}
+
+.pdf-text-block {
+    margin-bottom: 10mm;
+}
+
+.pdf-text-block h3 {
+    color: #ffffff;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.pdf-text-block p {
+    color: #d1d4dc;
+    font-size: 14px;
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+.pdf-bias-indicator {
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: auto;
+}
+
+.pdf-bias-bullish {
+    background-color: rgba(38, 166, 154, 0.2) !important;
+    color: #26a69a !important;
+    border: 1px solid #26a69a !important;
+}
+
+.pdf-bias-bearish {
+    background-color: rgba(239, 83, 80, 0.2) !important;
+    color: #ef5350 !important;
+    border: 1px solid #ef5350 !important;
+}
+
+.pdf-bias-neutral {
+    background-color: rgba(138, 147, 159, 0.2) !important;
+    color: #8a939f !important;
+    border: 1px solid #8a939f !important;
+}
+
+/* Performance Table */
+.pdf-perf-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pdf-perf-table th, .pdf-perf-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #2a2e39;
+}
+
+.pdf-perf-table th {
+    color: #8a939f;
+    font-weight: normal;
+}
+
+/* Daily Report Thematic Blocks */
+.pdf-thematics {
+    display: flex;
+    flex-direction: column;
+    gap: 6mm;
+}
+
+.pdf-thematic-card {
+    background-color: #131722;
+    border: 1px solid #2a2e39;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.pdf-thematic-card h3 {
+    color: #ffffff;
+    font-size: 15px;
+    margin: 0 0 8px 0;
+    border-bottom: 1px solid #2a2e39;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.pdf-thematic-card p {
+    color: #d1d4dc;
+    font-size: 13.5px;
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+/* Economic Calendar & Trading Plan Matrix Tables */
+.pdf-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 8mm;
+}
+
+.pdf-table th, .pdf-table td {
+    padding: 8px 6px;
+    text-align: left;
+    border-bottom: 1px solid #2a2e39;
+    font-size: 12px;
+}
+
+.pdf-table th {
+    color: #8a939f;
+    font-weight: 600;
+    background-color: #181c27;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* Importance and Bias Badges */
+.badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.badge-red {
+    background-color: rgba(239, 83, 80, 0.2) !important;
+    color: #ef5350 !important;
+    border: 1px solid #ef5350 !important;
+}
+
+.badge-orange {
+    background-color: rgba(255, 152, 0, 0.2) !important;
+    color: #ff9800 !important;
+    border: 1px solid #ff9800 !important;
+}
+
+.badge-yellow {
+    background-color: rgba(255, 235, 59, 0.2) !important;
+    color: #fbc02d !important;
+    border: 1px solid #fbc02d !important;
+}
+
+.badge-bullish {
+    background-color: rgba(38, 166, 154, 0.2) !important;
+    color: #26a69a !important;
+    border: 1px solid #26a69a !important;
+}
+
+.badge-bearish {
+    background-color: rgba(239, 83, 80, 0.2) !important;
+    color: #ef5350 !important;
+    border: 1px solid #ef5350 !important;
+}
+
+.badge-neutral {
+    background-color: rgba(138, 147, 159, 0.2) !important;
+    color: #8a939f !important;
+    border: 1px solid #8a939f !important;
+}
+
+/* Live Preview Modal Backdrop and Container */
+.preview-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.preview-modal-content {
+    background-color: #0c0f16;
+    border: 1px solid #2a2e39;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 950px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.preview-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 24px;
+    border-bottom: 1px solid #2a2e39;
+    background-color: #131722;
+}
+
+.preview-modal-header h3 {
+    color: #ffffff;
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.preview-modal-close {
+    background: transparent;
+    color: #8a939f;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.15s ease-in-out;
+}
+
+.preview-modal-close:hover {
+    color: #ffffff;
+}
+
+.preview-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    background-color: #0c0f16;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.preview-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 15px 24px;
+    border-top: 1px solid #2a2e39;
+    background-color: #131722;
+}
+
+/* G10 Central Bank Stance Badges */
+.badge-hawkish {
+    background-color: rgba(239, 83, 80, 0.2) !important;
+    color: #ef5350 !important;
+    border: 1px solid #ef5350 !important;
+}
+
+.badge-dovish {
+    background-color: rgba(38, 166, 154, 0.2) !important;
+    color: #26a69a !important;
+    border: 1px solid #26a69a !important;
+}
+
+/* Weekly Currency Performance Ranking Bar Chart */
+.pdf-chart-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.pdf-chart-label {
+    width: 60px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #ffffff;
+}
+
+.pdf-chart-bar-container {
+    flex: 1;
+    background-color: #1c2030;
+    height: 14px;
+    border-radius: 7px;
+    overflow: hidden;
+    margin: 0 12px;
+    position: relative;
+}
+
+.pdf-chart-bar-fill {
+    height: 100%;
+    border-radius: 7px;
+    transition: width 0.3s ease;
+}
+
+.pdf-chart-value {
+    width: 65px;
+    text-align: right;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Roboto Mono', monospace;
+}
