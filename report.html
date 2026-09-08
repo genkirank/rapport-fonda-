@@ -6443,25 +6443,41 @@
     function submitJournalEntry() {
       const dateInput = document.getElementById('journal-date');
       const catInput = document.getElementById('journal-category');
-      const date = dateInput.value || new Date().toISOString().slice(0, 10);
-      const category = catInput.value;
+      const date = dateInput?.value || new Date().toISOString().slice(0, 10);
+      let category = catInput?.value || 'macro';
       let entryRef = null;
       let isNew = false;
 
-      if (category === 'these') {
+      // Collect potential thesis content
+      const theseTitle = (document.getElementById('journal-these-title')?.value || '').trim();
+      const theseCharts = typeof collectTheseCharts === 'function' ? collectTheseCharts() : [];
+      const theseBlocks = typeof collectTheseBlocks === 'function' ? collectTheseBlocks() : [];
+      const hasThesisContent = Boolean(theseTitle || theseCharts.length || theseBlocks.some(b => (b.text || '').trim() || (b.imgs && b.imgs.length)));
+
+      // Collect potential normal mode content
+      const imgNoteEl = document.getElementById('journal-img-note');
+      const analyses = typeof collectJournalAnalyses === 'function' ? collectJournalAnalyses() : [];
+      const imgNote = (imgNoteEl?.value || '').trim();
+      const img = currentJournalImg || '';
+      const hasNormalContent = Boolean(analyses.length || imgNote || img);
+
+      // Check total content
+      if (!hasThesisContent && !hasNormalContent) {
+        showToast('⚠️ Remplis au moins une note, une question ou une analyse avant d\'enregistrer.', 3500);
+        return;
+      }
+
+      // Decide mode based on category or content
+      if (category === 'these' || (hasThesisContent && !hasNormalContent)) {
         // ── Mode Thèse ──────────────────────────────────────────────────────────
-        const theseTitle = (document.getElementById('journal-these-title')?.value || '').trim();
-        const theseCharts = collectTheseCharts();
-        const theseBlocks = collectTheseBlocks();
-        const hasContent = theseTitle || theseCharts.length || theseBlocks.some(b => b.text || b.imgs.length);
-        if (!hasContent) {
-          alert('Remplis au moins le titre ou une des questions de la thèse.');
-          return;
-        }
+        category = 'these';
+        if (catInput) catInput.value = 'these';
+
         if (journalEditingId) {
           const entry = journalEntries.find(e => e.id === journalEditingId);
           if (entry) {
-            entry.date = date; entry.category = category;
+            entry.date = date;
+            entry.category = category;
             entry.theseTitle = theseTitle;
             entry.theseCharts = theseCharts;
             entry.theseBlocks = theseBlocks;
@@ -6472,63 +6488,85 @@
           entryRef = entry;
         } else {
           const now = Date.now();
-          entryRef = { id: journalUid(), date, category, theseTitle, theseCharts, theseBlocks, createdAt: now, updatedAt: now };
+          entryRef = {
+            id: journalUid(),
+            date,
+            category,
+            theseTitle,
+            theseCharts,
+            theseBlocks,
+            createdAt: now,
+            updatedAt: now
+          };
           journalEntries.push(entryRef);
           isNew = true;
         }
-        // Clear thesis form
+
+        // Reset thesis form fields
         clearTheseCharts();
         const titleEl = document.getElementById('journal-these-title');
         if (titleEl) titleEl.value = '';
         initTheseBlocks();
-        addTheseChart(); // keep one empty top-chart zone ready
+        addTheseChart();
 
       } else {
-        // ── Mode Normal ─────────────────────────────────────────────────────────
-        const imgNoteEl = document.getElementById('journal-img-note');
-        const analyses = collectJournalAnalyses();
-        if (!analyses.length) {
-          alert('Ajoute au moins une analyse via "+ Ajouter une devise / analyse".');
-          return;
-        }
-        const imgNote = (imgNoteEl?.value || '').trim();
-        const img = currentJournalImg;
+        // ── Mode Normal (Analyse journalière, Idée, Technique, Autre) ───────────
         if (journalEditingId) {
           const entry = journalEntries.find(e => e.id === journalEditingId);
           if (entry) {
-            entry.date = date; entry.category = category;
-            entry.imgNote = imgNote; entry.analyses = analyses;
+            entry.date = date;
+            entry.category = category;
+            entry.imgNote = imgNote;
+            entry.analyses = analyses;
             entry.updatedAt = Date.now();
             if (img) entry.img = img;
-            delete entry.theseTitle; delete entry.theseText; delete entry.theseCharts;
+            delete entry.theseTitle; delete entry.theseText; delete entry.theseCharts; delete entry.theseBlocks;
           }
           entryRef = entry;
         } else {
           const now = Date.now();
-          entryRef = { id: journalUid(), date, category, img, imgNote, analyses, createdAt: now, updatedAt: now };
+          entryRef = {
+            id: journalUid(),
+            date,
+            category,
+            img,
+            imgNote,
+            analyses,
+            createdAt: now,
+            updatedAt: now
+          };
           journalEntries.push(entryRef);
           isNew = true;
         }
+
         clearJournalAnalyses();
         clearJournalImg();
         if (imgNoteEl) imgNoteEl.value = '';
-        addJournalAnalysisBlock(); // keep one empty block ready
+        addJournalAnalysisBlock();
       }
 
-      // Common cleanup
-      if (journalEditingId) {
-        journalEditingId = null;
-        document.getElementById('journal-submit-btn').textContent = '💾 Enregistrer cette entrée dans le Journal';
-        document.getElementById('journal-cancel-btn').style.display = 'none';
-      }
+      // Cleanup editing state
       journalEditingId = null;
-      document.getElementById('journal-submit-btn').textContent = '💾 Enregistrer cette entrée dans le Journal';
-      document.getElementById('journal-cancel-btn').style.display = 'none';
-      dateInput.value = new Date().toISOString().slice(0, 10);
-      renderJournalEntries(); setupClipboardPasteListeners(); initJournalSelection(); initJournalSelection();
+      const submitBtn = document.getElementById('journal-submit-btn');
+      const cancelBtn = document.getElementById('journal-cancel-btn');
+      if (submitBtn) submitBtn.textContent = '💾 Enregistrer cette entrée dans le Journal';
+      if (cancelBtn) cancelBtn.style.display = 'none';
+      if (dateInput) dateInput.value = new Date().toISOString().slice(0, 10);
+
+      // Auto-include newly created entry in the active report
+      if (entryRef && entryRef.id && typeof selectedJournalIds !== 'undefined') {
+        selectedJournalIds.add(String(entryRef.id));
+      }
+
+      renderJournalEntries();
+      setupClipboardPasteListeners();
+      initJournalSelection();
       saveJournalToStorage();
+
       if (typeof scheduleSessionSave === 'function') scheduleSessionSave();
-      if (entryRef) pushJournalEntryToCloud(entryRef, isNew);
+      if (entryRef && typeof pushJournalEntryToCloud === 'function') pushJournalEntryToCloud(entryRef);
+
+      showToast('✓ Entrée enregistrée dans le journal !', 3000);
     }
 
     function cancelJournalEdit() {
