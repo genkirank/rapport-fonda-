@@ -3843,30 +3843,30 @@
 
   
     /* ══════════════════════════════════════════════════════════════ */
-    /* MODERN TOP TOOLBAR & HIGH CONTRAST SPACIOUS LAYOUT             */
+    /* ZINC INSTITUTIONAL DARK THEME & MODERN TOP TOOLBAR             */
     /* ══════════════════════════════════════════════════════════════ */
     :root {
-      --accent: #00bfa5;
+      --accent: #26a69a;
       --accent-orange: #E87722;
-      --bg-main: #0f1715;
-      --bg-dark: #091815;
-      --text: #f8fafc;
-      --text-primary: #f8fafc;
-      --text-secondary: #cbd5e1;
-      --text-muted: #94a3b8;
-      --border: rgba(255, 255, 255, 0.12);
+      --bg-main: #09090b;
+      --bg-dark: #121316;
+      --text: #f4f4f5;
+      --text-primary: #f4f4f5;
+      --text-secondary: #a1a1aa;
+      --text-muted: #71717a;
+      --border: #27272a;
       --border-soft: rgba(255, 255, 255, 0.06);
-      --accent-tint: rgba(0, 191, 165, 0.15);
-      --accent-tint2: rgba(0, 191, 165, 0.25);
-      --card-bg: #152521;
-      --card-bg-dark: #0f1c19;
-      --card-bg-darker: #0a1311;
+      --accent-tint: rgba(38, 166, 154, 0.14);
+      --accent-tint2: rgba(38, 166, 154, 0.24);
+      --card-bg: #121316;
+      --card-bg-dark: #18181b;
+      --card-bg-darker: #09090b;
       --radius-sm: 8px;
       --radius: 12px;
       --radius-lg: 16px;
       --color-win: #00e676;
       --color-loss: #ff5252;
-      --color-accent: #00bfa5;
+      --color-accent: #26a69a;
       --bias-bull: #00e676;
       --bias-leg-bull: #22c55e;
       --bias-neutral: #f59e0b;
@@ -3877,16 +3877,16 @@
       --bias-neutral-border: #f59e0b;
       --bias-leg-bear-border: #f87171;
       --bias-bear-border: #ef4444;
-      --bias-bull-bg: rgba(0, 230, 118, 0.16);
-      --bias-leg-bull-bg: rgba(34, 197, 94, 0.16);
-      --bias-neutral-bg: rgba(245, 158, 11, 0.16);
-      --bias-leg-bear-bg: rgba(248, 113, 113, 0.16);
-      --bias-bear-bg: rgba(239, 68, 68, 0.16);
+      --bias-bull-bg: rgba(0, 230, 118, 0.15);
+      --bias-leg-bull-bg: rgba(34, 197, 94, 0.15);
+      --bias-neutral-bg: rgba(245, 158, 11, 0.15);
+      --bias-leg-bear-bg: rgba(248, 113, 113, 0.15);
+      --bias-bear-bg: rgba(239, 68, 68, 0.15);
     }
 
     body {
-      background: #0f1715 !important;
-      color: #f8fafc !important;
+      background: #09090b !important;
+      color: #f4f4f5 !important;
       font-family: 'Inter', 'Sora', sans-serif !important;
       overflow-x: hidden;
     }
@@ -3895,16 +3895,16 @@
       display: flex !important;
       flex-direction: column !important;
       height: 100vh !important;
-      background: #0f1715 !important;
+      background: #09090b !important;
       overflow: hidden !important;
     }
 
-    /* TOP HEADER & NAVBAR */
+    /* TOP HEADER & NAVBAR (Zinc #121316 / #18181b) */
     .report-top-header {
-      background: rgba(9, 24, 21, 0.95);
+      background: rgba(18, 19, 22, 0.96);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid #27272a;
       padding: 12px 24px;
       display: flex;
       justify-content: space-between;
@@ -3931,25 +3931,25 @@
       font-size: 9px;
       font-weight: 800;
       letter-spacing: 0.12em;
-      color: #00e676;
+      color: #26a69a;
       text-transform: uppercase;
     }
 
     .report-brand h2 {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      color: #ffffff;
+      color: #f4f4f5;
       margin: 0;
       font-family: 'Sora', sans-serif;
     }
 
     .report-nav-tabs {
       display: flex;
-      gap: 6px;
-      background: rgba(0, 0, 0, 0.35);
+      gap: 4px;
+      background: #18181b;
       padding: 4px;
-      border-radius: 50px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      border: 1px solid #27272a;
       overflow-x: auto;
     }
 
@@ -3957,10 +3957,10 @@
       padding: 6px 14px;
       font-size: 12px;
       font-weight: 600;
-      color: #cbd5e1;
-      border-radius: 50px;
+      color: #a1a1aa;
+      border-radius: 7px;
       cursor: pointer;
-      border: none;
+      border: 1px solid transparent;
       background: transparent;
       display: flex;
       align-items: center;
@@ -3970,20 +3970,21 @@
     }
 
     .report-nav-tabs .nav-item:hover {
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.08);
+      color: #f4f4f5;
+      background: rgba(255, 255, 255, 0.05);
     }
 
     .report-nav-tabs .nav-item.active {
-      background: #ffffff;
-      color: #052623;
+      background: #27272a;
+      color: #f4f4f5;
+      border-color: rgba(38, 166, 154, 0.45);
       font-weight: 700;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
     }
 
     .report-nav-tabs .nav-item .nav-num {
-      background: rgba(255, 255, 255, 0.15);
-      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.08);
+      color: #a1a1aa;
       font-size: 9.5px;
       font-weight: 700;
       padding: 2px 6px;
@@ -3991,8 +3992,9 @@
     }
 
     .report-nav-tabs .nav-item.active .nav-num {
-      background: #00bfa5;
-      color: #ffffff;
+      background: #26a69a;
+      color: #052623;
+      font-weight: 800;
     }
 
     .report-header-actions {
@@ -4016,20 +4018,20 @@
       position: absolute;
       top: calc(100% + 8px);
       right: 0;
-      width: 260px;
-      background: #142420;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      width: 270px;
+      background: #18181b;
+      border: 1px solid #27272a;
       border-radius: 12px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.65);
       padding: 14px;
       z-index: 500;
     }
 
     .btn-preview-top {
       padding: 8px 16px;
-      background: rgba(0, 191, 165, 0.12);
-      border: 1px solid #00bfa5;
-      color: #00bfa5;
+      background: rgba(38, 166, 154, 0.12);
+      border: 1px solid #26a69a;
+      color: #26a69a;
       font-size: 12px;
       font-weight: 700;
       border-radius: 8px;
@@ -4038,8 +4040,8 @@
     }
 
     .btn-preview-top:hover {
-      background: rgba(0, 191, 165, 0.22);
-      color: #26e6cb;
+      background: rgba(38, 166, 154, 0.22);
+      color: #4db6ac;
     }
 
     .btn-generate-top {
@@ -4047,11 +4049,11 @@
       background: #00e676;
       color: #052623;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 800;
       border-radius: 8px;
       border: none;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 230, 118, 0.3);
+      box-shadow: 0 4px 12px rgba(0, 230, 118, 0.25);
       transition: all 0.15s;
     }
 
@@ -4072,67 +4074,70 @@
     }
 
     .section-title {
-      color: #f8fafc !important;
-      border-bottom: 2px solid #00bfa5 !important;
+      color: #f4f4f5 !important;
+      border-bottom: 2px solid #26a69a !important;
       font-family: 'Sora', sans-serif !important;
       padding-bottom: 8px !important;
       margin-bottom: 16px !important;
     }
 
-    /* Cards with high visibility and contrast */
+    /* Cards with Zinc Dark contrast (#121316 / #18181b / #27272a) */
     .section-card, .bias-card, .watch-card, .journal-entry, .ana-card, .journal-add-card, .photo-zone-card, .these-blk, .journal-analysis-form-block {
-      background: #152521 !important;
-      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      background: #121316 !important;
+      border: 1px solid #27272a !important;
       border-radius: 12px !important;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25) !important;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35) !important;
       margin-bottom: 16px !important;
     }
 
     .bias-card-header, .watch-card-header, .journal-entry-header, .ana-card-header, .these-suite-item {
-      background: #0f1c19 !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+      background: #18181b !important;
+      border-bottom: 1px solid #27272a !important;
     }
 
-    /* Clear legible input fields */
-    .field-group input, .field-group select, .field-group textarea, .lined-note, .these-blk-text, .jab-text, .jtc-note, .sidebar-select, .photo-zone-title, .chart-zone-label, .perf-cell input {
-      background: #0c1614 !important;
-      border: 1px solid rgba(255, 255, 255, 0.18) !important;
-      color: #ffffff !important;
+    /* Clear legible input fields with emerald focus (#26a69a) */
+    .field-group input, .field-group select, .field-group textarea, .lined-note, .these-blk-text, .jab-text, .jtc-note, .sidebar-select, .photo-zone-title, .chart-zone-label, .perf-cell input, .perf-cell select {
+      background: #09090b !important;
+      border: 1px solid #27272a !important;
+      color: #f4f4f5 !important;
       border-radius: 8px !important;
       font-size: 13px !important;
+      transition: border-color 0.15s, box-shadow 0.15s !important;
     }
 
-    .field-group input:focus, .field-group select:focus, .field-group textarea:focus, .lined-note:focus, .these-blk-text:focus, .jab-text:focus, .sidebar-select:focus {
-      border-color: #00bfa5 !important;
-      box-shadow: 0 0 0 3px rgba(0, 191, 165, 0.25) !important;
+    .field-group input:focus, .field-group select:focus, .field-group textarea:focus, .lined-note:focus, .these-blk-text:focus, .jab-text:focus, .sidebar-select:focus, .perf-cell input:focus, .perf-cell select:focus {
+      border-color: #26a69a !important;
+      box-shadow: 0 0 0 3px rgba(38, 166, 154, 0.25) !important;
+      outline: none !important;
     }
 
     .btn-secondary, .btn-add, .these-suite-add-btn, .jab-add-chart-btn {
       border-radius: 8px !important;
-      border: 1px solid rgba(255, 255, 255, 0.18) !important;
-      color: #cbd5e1 !important;
-      background: rgba(255, 255, 255, 0.04) !important;
+      border: 1px solid #27272a !important;
+      color: #d4d4d8 !important;
+      background: #18181b !important;
       transition: all 0.15s !important;
     }
 
     .btn-secondary:hover, .btn-add:hover, .these-suite-add-btn:hover {
-      border-color: #00bfa5 !important;
-      color: #00bfa5 !important;
-      background: rgba(0, 191, 165, 0.12) !important;
+      border-color: #26a69a !important;
+      color: #26a69a !important;
+      background: rgba(38, 166, 154, 0.12) !important;
     }
 
     .jmt-tab {
-      border-radius: 50px !important;
+      border-radius: 8px !important;
       padding: 5px 14px !important;
       font-weight: 600 !important;
-      color: #cbd5e1 !important;
-      background: #0d1a17 !important;
-      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      color: #a1a1aa !important;
+      background: #18181b !important;
+      border: 1px solid #27272a !important;
     }
 
     .jmt-tab.active {
-      background: #00e676 !important;
+      background: #26a69a !important;
       color: #052623 !important;
+      border-color: #26a69a !important;
       font-weight: 700 !important;
     }
 
@@ -4143,15 +4148,14 @@
 
     .editor-img-zone, .journal-img-drop {
       border-radius: 10px !important;
-      border: 1px dashed rgba(255, 255, 255, 0.25) !important;
-      background: rgba(0, 0, 0, 0.3) !important;
+      border: 1px dashed #3f3f46 !important;
+      background: #09090b !important;
     }
 
     .editor-img-zone:hover, .journal-img-drop:hover {
-      border-color: #00bfa5 !important;
+      border-color: #26a69a !important;
     }
 
-  
     /* PASTE / DROPZONE VISUAL FEEDBACK */
     .editor-img-zone, .journal-img-drop, .jtc-drop, .these-blk-drop {
       position: relative;
@@ -4161,8 +4165,8 @@
     }
 
     .editor-img-zone:hover, .journal-img-drop:hover, .jtc-drop:hover, .paste-hover-target {
-      border-color: #00bfa5 !important;
-      background: rgba(0, 191, 165, 0.08) !important;
+      border-color: #26a69a !important;
+      background: rgba(38, 166, 154, 0.08) !important;
     }
 
     .active-paste-target {
@@ -4215,6 +4219,10 @@
 
       <div class="report-header-actions">
         <div class="report-action-group">
+          <button type="button" class="btn-secondary" id="btn-sync-dashboard" onclick="requestDashboardSync(true)" title="Synchroniser Performance FX, Banques Centrales, Watchlist et Bilan des Trades depuis le Dashboard" style="font-size:11.5px; padding:6px 12px; display:flex; align-items:center; gap:6px; border-color:rgba(38,166,154,0.45) !important; color:#26a69a !important;">
+            <span>🔄 Sync Dashboard</span>
+          </button>
+
           <button type="button" class="btn-secondary" onclick="openJournalPickerModal()" style="font-size:11.5px; padding:6px 12px; display:flex; align-items:center; gap:6px;">
             <span>📝 Filtrer Journal</span>
             <span id="selected-journal-count-badge" style="background:#00e676; color:#052623; padding:1px 6px; border-radius:10px; font-size:9.5px; font-weight:800;">3</span>
@@ -4227,12 +4235,13 @@
             </button>
             <div id="sections-dropdown-menu" class="sections-dropdown-popover" style="display:none;">
               <div class="report-sections-panel">
-                <span class="report-sections-label" style="color:#00bfa5; font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px; display:block;">Sections incluses</span>
+                <span class="report-sections-label" style="color:#26a69a; font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px; display:block;">Sections incluses</span>
                 <label class="sec-toggle"><input type="checkbox" id="sec-j" checked onchange="saveReportSections(); updateSelectedJournalCount();"> J — Journal Quotidien</label>
                 <label class="sec-toggle"><input type="checkbox" id="sec-1" checked onchange="saveReportSections()"> 1 — Performance FX</label>
                 <label class="sec-toggle"><input type="checkbox" id="sec-2" checked onchange="saveReportSections()"> 2 — Analyses &amp; Currency Index</label>
                 <label class="sec-toggle"><input type="checkbox" id="sec-3" checked onchange="saveReportSections()"> 3 — Sentiment &amp; Photos</label>
                 <label class="sec-toggle"><input type="checkbox" id="sec-5" checked onchange="saveReportSections()"> 4 — Watchlist</label>
+                <label class="sec-toggle"><input type="checkbox" id="sec-trades" checked onchange="saveReportSections()"> 📊 Bilan Trades de la Semaine</label>
                 
                 <div style="margin-top:12px; border-top:1px solid rgba(255,255,255,0.08); padding-top:8px; display:grid; grid-template-columns:1fr 1fr; gap:6px;">
                   <div class="sidebar-field">
@@ -4274,7 +4283,6 @@
       <div class="page-tab active" id="tab-0">
         <div class="section-title">En-tête du rapport</div>
 
-
         <div class="field-row">
           <div class="field-group">
             <div class="field-label-row">
@@ -4308,6 +4316,28 @@
           <div class="field-group">
             <label>Date fin de semaine</label>
             <input type="text" id="date-end" placeholder="ex: 15/03/26">
+          </div>
+        </div>
+
+        <!-- ENCART OPTIONNEL : BILAN DES TRADES DE LA SEMAINE (Synchronisé avec le Dashboard) -->
+        <div class="section-card" id="weekly-trades-summary-card" style="margin-top:24px; padding:18px 20px; border-left:3px solid #26a69a !important;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
+            <div>
+              <span style="font-size:10px; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#26a69a;">SYNCHRONISATION LIVE TRACKER</span>
+              <h3 style="margin:2px 0 0 0; font-size:1rem; color:#f4f4f5;">📊 Bilan des Trades de la Semaine</h3>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+              <label style="display:flex; align-items:center; gap:6px; font-size:12px; color:#d4d4d8; cursor:pointer; font-weight:600;">
+                <input type="checkbox" id="include-weekly-trades-chk" checked onchange="const el=document.getElementById('sec-trades'); if(el) el.checked=this.checked; saveReportSections();" style="accent-color:#26a69a; width:15px; height:15px;">
+                Inclure dans le rapport exporté
+              </label>
+              <button type="button" class="btn-secondary" onclick="requestDashboardSync(true)" style="padding:5px 12px; font-size:11px;">
+                🔄 Actualiser depuis le Dashboard
+              </button>
+            </div>
+          </div>
+          <div id="weekly-trades-summary-body">
+            <div style="color:#a1a1aa; font-size:12.5px; padding:10px 0;">Synchronisation des trades clôturés en cours...</div>
           </div>
         </div>
       </div>
@@ -4766,8 +4796,21 @@
                 style="background:#ea580c"></i><i style="background:#fb923c"></i><i
                 style="background:#fed7aa"></i></span></button>
         </div>
-        <p class="hint" style="margin-bottom:16px;">Biais, screenshots currency index, projections banque centrale et
-          résumé par devise.</p>
+        <p class="hint" style="margin-bottom:14px;">Biais, politique monétaire des banques centrales, screenshots currency index et résumé par devise.</p>
+        <!-- TABLEAU DES BANQUES CENTRALES SYNCHRONISÉ AVEC MACRO INSIGHTS -->
+        <div class="section-card" id="synced-central-banks-card" style="padding:14px 18px; margin-bottom:18px; border-left:3px solid #26a69a !important;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+            <div>
+              <span style="font-size:9.5px; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#26a69a;">SYNCHRONISATION MACRO INSIGHTS</span>
+              <h4 style="margin:2px 0 0 0; font-size:0.95rem; color:#f4f4f5;">🏦 Biais des Banques Centrales (G10)</h4>
+            </div>
+            <button type="button" class="btn-secondary" onclick="requestDashboardSync(true)" style="padding:4px 10px; font-size:11px;">
+              🔄 Synchroniser les Politiques Monétaires
+            </button>
+          </div>
+          <div id="synced-central-banks-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:8px;">
+          </div>
+        </div>
         <div id="bias-grid"></div>
 
       </div>
@@ -5075,9 +5118,8 @@
       <p style="margin:16px 0 0;font-size:10px;color:#3a3a3a;text-align:center;font-family:'Inter',sans-serif;">Astuce
         PDF : dans la boîte d'impression, choisissez « Enregistrer en PDF »</p>
     </div>
-  </div>
-
   <div class="toast" id="toast">✓ Rapport généré !</div>
+  <div id="cloud-save-dot" style="position:fixed;bottom:14px;right:18px;width:9px;height:9px;border-radius:50%;opacity:0;transition:opacity 0.3s;z-index:9999;pointer-events:none;"></div>
 
   <script>
     // ── CORE GLOBAL CONSTANTS & STATE ──────────────────────────────
@@ -5118,8 +5160,8 @@
     let cloudSyncTimer = null;
     let cloudUnavailable = false;
 
-    const SUPABASE_URL = 'https://njunspsbrwiyvegrqqpm.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5qdW5zcHNicndpeXZlZ3JxcXBtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc5MTM2NjQsImV4cCI6MjEwMzQ4OTY2NH0.QPgxTFO7rV_3G98hx8zXiss9gi6P13eYi1WMsQs-gHI';
+    const SUPABASE_URL = 'https://axgemnwcpqwsotkxdmjb.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF4Z2VtbndjcHF3c290a3hkbWpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAwODgwNTMsImV4cCI6MjEwNTY2NDA1M30.KzehvmFvPMTK2EDWthEzmpeC6A6kBKNdG5wcVM6gXas';
     const sb = (typeof window !== 'undefined' && typeof window.supabase !== 'undefined')
       ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
       : null;
@@ -5200,6 +5242,10 @@
       setTimeout(() => { t.style.display = 'none'; }, 2500);
     }
 
+    function isVisiblePasteTarget(el) {
+      return Boolean(el && document.body.contains(el) && el.offsetParent !== null);
+    }
+
     // ── Direct Clipboard Paste Helper (Reads clipboard on click or Ctrl+V) ──
     async function pasteFromClipboardToZone(zoneId) {
       try {
@@ -5240,16 +5286,26 @@
       // Automatically compress pasted screenshot to prevent local storage quota crash
       const src = await compressImage(rawSrc, 1400, 0.82);
 
-      let el = target || window._activeImageZone;
-      
-      if (!el && document.activeElement) {
-        el = document.activeElement.closest('.journal-img-drop, .editor-img-zone, .jtc-drop, .these-blk-drop, .journal-add-card, .journal-analysis-form-block, .field-group');
+      let el = isVisiblePasteTarget(target) ? target : null;
+      if (!el && isVisiblePasteTarget(window._hoveredImageZone)) {
+        el = window._hoveredImageZone;
+      }
+      if (!el && document.activeElement && document.activeElement !== document.body) {
+        const focusedContainer = document.activeElement.closest(
+          '.journal-img-drop, .editor-img-zone, .jtc-drop, .these-blk-drop, .journal-analysis-form-block, .journal-these-chart-block, .these-blk, .these-suite-form, .field-group'
+        );
+        if (isVisiblePasteTarget(focusedContainer)) {
+          el = focusedContainer;
+        }
+      }
+      if (!el && isVisiblePasteTarget(window._activeImageZone)) {
+        el = window._activeImageZone;
       }
 
       if (el) {
-        // If element is an editor-img-zone or contains one
+        // 1. If element is an editor-img-zone or contains one
         const imgZone = el.classList.contains('editor-img-zone') ? el : el.querySelector('.editor-img-zone');
-        if (imgZone && imgZone.id) {
+        if (imgZone && imgZone.id && isVisiblePasteTarget(imgZone)) {
           imgStore[imgZone.id] = src;
           showEditorImg(imgZone.id, src);
           scheduleSessionSave();
@@ -5258,26 +5314,139 @@
           return true;
         }
 
-        // If element is a journal-img-drop
-        if (el.classList.contains('journal-img-drop') || el.id === 'journal-img-drop') {
-          if (el.id === 'journal-img-drop' || el.closest('#journal-img-drop')) {
-            if (typeof setJournalImg === 'function') setJournalImg(src);
-            scheduleSessionSave();
-            showPasteToast('✓ Performance FX collée et sauvegardée !');
-            return true;
-          }
-          const jabMatch = el.id.match(/jab-cdrop-(\d+)-(\d+)/);
+        // 2. Direct journal-img-drop zone (or field-group containing #journal-img-drop)
+        const jDrop = (el.classList && el.classList.contains('journal-img-drop'))
+          ? el
+          : (el.id === 'journal-img-drop' ? el : el.querySelector('#journal-img-drop'));
+        if (jDrop && jDrop.id === 'journal-img-drop' && isVisiblePasteTarget(jDrop)) {
+          if (typeof setJournalFormImg === 'function') setJournalFormImg(src);
+          scheduleSessionSave();
+          showPasteToast('✓ Graphique Performance FX collé et sauvegardé !');
+          return true;
+        }
+
+        // 3. Specific dropzone inside Journal (jab-cdrop, jtc-drop, tblk-cdrop, tsuite-cdrop, tsuite-edit-drop)
+        const dropEl = (el.classList && el.classList.contains('journal-img-drop')) ? el : el.closest?.('.journal-img-drop');
+        if (dropEl && dropEl.id) {
+          const jabMatch = dropEl.id.match(/^jab-cdrop-(\d+)-(\d+)$/);
           if (jabMatch && typeof setJabChartImgS === 'function') {
             setJabChartImgS(parseInt(jabMatch[1], 10), parseInt(jabMatch[2], 10), src);
             scheduleSessionSave();
             showPasteToast('✓ Graphique d\'analyse collé et sauvegardé !');
             return true;
           }
-          const jtcMatch = el.id.match(/jtc-drop-(\d+)/);
+          const jtcMatch = dropEl.id.match(/^jtc-drop-(\d+)$/);
           if (jtcMatch && typeof setTheseChartImg === 'function') {
             setTheseChartImg(parseInt(jtcMatch[1], 10), src);
             scheduleSessionSave();
             showPasteToast('✓ Graphique de thèse collé et sauvegardé !');
+            return true;
+          }
+          const tblkMatch = dropEl.id.match(/^tblk-cdrop-(\d+)-(\d+)$/);
+          if (tblkMatch && typeof setTheseBlockChartImg === 'function') {
+            setTheseBlockChartImg(parseInt(tblkMatch[1], 10), parseInt(tblkMatch[2], 10), src);
+            scheduleSessionSave();
+            showPasteToast('✓ Graphique de bloc thèse collé !');
+            return true;
+          }
+          const tsuiteMatch = dropEl.id.match(/^tsuite-cdrop-(.+)-(\d+)$/);
+          if (tsuiteMatch && typeof setTheseSuiteChartImg === 'function') {
+            setTheseSuiteChartImg(tsuiteMatch[1], parseInt(tsuiteMatch[2], 10), src);
+            scheduleSessionSave();
+            showPasteToast('✓ Graphique de suite collé !');
+            return true;
+          }
+          const tsuiteEditMatch = dropEl.id.match(/^tsuite-edit-drop-(.+)-(\d+)$/);
+          if (tsuiteEditMatch && typeof setTheseSuiteEditImg === 'function') {
+            const suiteId = tsuiteEditMatch[1];
+            const sk = parseInt(tsuiteEditMatch[2], 10);
+            const editKey = Object.keys(theseSuiteEditImgs || {}).find(k => k.endsWith(':' + suiteId));
+            if (editKey) {
+              setTheseSuiteEditImg(editKey, suiteId, sk, src);
+              showPasteToast('✓ Graphique de suite modifié !');
+              return true;
+            }
+          }
+        }
+
+        // 4. Focused/hovered inside a Journal Analysis Block (.journal-analysis-form-block, #jab-X)
+        const jabBlock = el.classList?.contains('journal-analysis-form-block') ? el : el.closest?.('.journal-analysis-form-block');
+        if (jabBlock && jabBlock.id) {
+          const blockIdx = parseInt(jabBlock.id.replace('jab-', ''), 10);
+          if (!isNaN(blockIdx)) {
+            const emptyDrop = jabBlock.querySelector('.journal-img-drop:not(.has-img)');
+            if (emptyDrop && emptyDrop.id) {
+              const m = emptyDrop.id.match(/^jab-cdrop-(\d+)-(\d+)$/);
+              if (m && typeof setJabChartImgS === 'function') {
+                setJabChartImgS(parseInt(m[1], 10), parseInt(m[2], 10), src);
+                scheduleSessionSave();
+                showPasteToast('✓ Graphique d\'analyse collé !');
+                return true;
+              }
+            }
+            if (typeof addJabChartSlot === 'function') {
+              addJabChartSlot(blockIdx, src);
+              scheduleSessionSave();
+              showPasteToast('✓ Graphique ajouté à l\'analyse !');
+              return true;
+            }
+          }
+        }
+
+        // 5. Focused/hovered inside a Thesis Chart Block (.journal-these-chart-block, #jtc-X)
+        const jtcBlock = el.classList?.contains('journal-these-chart-block') ? el : el.closest?.('.journal-these-chart-block');
+        if (jtcBlock && jtcBlock.id) {
+          const idx = parseInt(jtcBlock.id.replace('jtc-', ''), 10);
+          if (!isNaN(idx) && typeof setTheseChartImg === 'function') {
+            setTheseChartImg(idx, src);
+            scheduleSessionSave();
+            showPasteToast('✓ Graphique de thèse collé !');
+            return true;
+          }
+        }
+
+        // 6. Focused/hovered inside a Thesis Question/Libre Block (.these-blk, #tblk-X)
+        const tblk = el.classList?.contains('these-blk') ? el : el.closest?.('.these-blk');
+        if (tblk && tblk.id) {
+          const blockIdx = parseInt(tblk.id.replace('tblk-', ''), 10);
+          if (!isNaN(blockIdx)) {
+            const emptyDrop = tblk.querySelector('.journal-img-drop:not(.has-img)');
+            if (emptyDrop && emptyDrop.id) {
+              const m = emptyDrop.id.match(/^tblk-cdrop-(\d+)-(\d+)$/);
+              if (m && typeof setTheseBlockChartImg === 'function') {
+                setTheseBlockChartImg(parseInt(m[1], 10), parseInt(m[2], 10), src);
+                scheduleSessionSave();
+                showPasteToast('✓ Graphique collé dans le bloc thèse !');
+                return true;
+              }
+            }
+            if (typeof addTheseBlockChartSlot === 'function') {
+              addTheseBlockChartSlot(blockIdx, src);
+              scheduleSessionSave();
+              showPasteToast('✓ Graphique ajouté au bloc thèse !');
+              return true;
+            }
+          }
+        }
+
+        // 7. Focused/hovered inside a Thesis Suite Form (.these-suite-form, #tsuite-form-X)
+        const tsuiteForm = el.classList?.contains('these-suite-form') ? el : el.closest?.('.these-suite-form');
+        if (tsuiteForm && tsuiteForm.id && tsuiteForm.id.startsWith('tsuite-form-')) {
+          const entryId = tsuiteForm.id.replace('tsuite-form-', '');
+          const emptyDrop = tsuiteForm.querySelector('.journal-img-drop:not(.has-img)');
+          if (emptyDrop && emptyDrop.id) {
+            const m = emptyDrop.id.match(/^tsuite-cdrop-(.+)-(\d+)$/);
+            if (m && typeof setTheseSuiteChartImg === 'function') {
+              setTheseSuiteChartImg(m[1], parseInt(m[2], 10), src);
+              scheduleSessionSave();
+              showPasteToast('✓ Graphique collé dans la suite !');
+              return true;
+            }
+          }
+          if (typeof addTheseSuiteChartSlot === 'function') {
+            addTheseSuiteChartSlot(entryId, src);
+            scheduleSessionSave();
+            showPasteToast('✓ Graphique ajouté à la suite !');
             return true;
           }
         }
@@ -5289,6 +5458,17 @@
         if (activeTab.id === 'tab-journal') {
           const cat = document.getElementById('journal-category')?.value;
           if (cat === 'these') {
+            // If there's an empty chart block in thesis, fill it first; otherwise create a new one
+            const emptyJtc = document.querySelector('#journal-these-charts .journal-img-drop:not(.has-img)');
+            if (emptyJtc && emptyJtc.id) {
+              const idx = parseInt(emptyJtc.id.replace('jtc-drop-', ''), 10);
+              if (!isNaN(idx) && typeof setTheseChartImg === 'function') {
+                setTheseChartImg(idx, src);
+                scheduleSessionSave();
+                showPasteToast('✓ Graphique de thèse collé et sauvegardé !');
+                return true;
+              }
+            }
             if (typeof addTheseChart === 'function') {
               addTheseChart();
               const chartBlocks = document.querySelectorAll('#journal-these-charts .journal-these-chart-block');
@@ -5302,8 +5482,28 @@
               }
             }
           } else {
-            if (typeof setJournalImg === 'function') {
-              setJournalImg(src);
+            // Normal mode (Analyse journalière, Technique, Idée, Autre)
+            // 1. If main Performance FX dropzone is empty, fill it
+            if (!currentJournalImg && typeof setJournalFormImg === 'function') {
+              setJournalFormImg(src);
+              scheduleSessionSave();
+              showPasteToast('✓ Graphique Performance FX collé et sauvegardé !');
+              return true;
+            }
+            // 2. If there is an empty chart slot in any analysis block, fill it
+            const emptyJabDrop = document.querySelector('#journal-analyses-container .journal-img-drop:not(.has-img)');
+            if (emptyJabDrop && emptyJabDrop.id) {
+              const m = emptyJabDrop.id.match(/^jab-cdrop-(\d+)-(\d+)$/);
+              if (m && typeof setJabChartImgS === 'function') {
+                setJabChartImgS(parseInt(m[1], 10), parseInt(m[2], 10), src);
+                scheduleSessionSave();
+                showPasteToast('✓ Graphique d\'analyse collé et sauvegardé !');
+                return true;
+              }
+            }
+            // 3. Otherwise replace main Performance FX dropzone image
+            if (typeof setJournalFormImg === 'function') {
+              setJournalFormImg(src);
               scheduleSessionSave();
               showPasteToast('✓ Graphique journalier collé et sauvegardé !');
               return true;
@@ -5343,11 +5543,17 @@
     function setupClipboardPasteListeners() {
       // Expose applyPastedImage globally for parent window access
       window.applyPastedImage = applyPastedImage;
+      if (typeof setJournalFormImg === 'function') {
+        window.setJournalImg = setJournalFormImg;
+      }
+      if (window._clipboardListenersAttached) return;
+      window._clipboardListenersAttached = true;
 
       // Track hover and focus on dropzones
       document.addEventListener('mouseover', function (e) {
         const dropzone = e.target.closest('.editor-img-zone, .journal-img-drop, .jtc-drop, .these-blk-drop');
         if (dropzone) {
+          window._hoveredImageZone = dropzone;
           window._activeImageZone = dropzone;
           dropzone.classList.add('paste-hover-target');
         }
@@ -5357,6 +5563,9 @@
         const dropzone = e.target.closest('.editor-img-zone, .journal-img-drop, .jtc-drop, .these-blk-drop');
         if (dropzone) {
           dropzone.classList.remove('paste-hover-target');
+          if (window._hoveredImageZone === dropzone && !dropzone.contains(e.relatedTarget)) {
+            window._hoveredImageZone = null;
+          }
         }
       }, true);
 
@@ -5366,19 +5575,27 @@
           window._activeImageZone = dropzone;
           document.querySelectorAll('.active-paste-target').forEach(el => el.classList.remove('active-paste-target'));
           dropzone.classList.add('active-paste-target');
+        } else {
+          const container = e.target.closest('.journal-analysis-form-block, .these-blk, .these-suite-form, .journal-these-chart-block');
+          if (container) {
+            window._activeImageZone = container;
+          }
         }
       }, true);
 
       // Listen for messages from parent dashboard
       window.addEventListener('message', function (e) {
         if (e.data && e.data.type === 'PASTED_IMAGE' && e.data.src) {
-          applyPastedImage(e.data.src, window._activeImageZone);
+          applyPastedImage(e.data.src, window._hoveredImageZone || window._activeImageZone);
         }
       });
 
-      // Global capture-phase paste listener
-      async function handleClipboardData(clipboard) {
+      // Global capture-phase paste listener (single listener to avoid duplicate paste)
+      window.addEventListener('paste', function (e) {
+        const clipboard = e.clipboardData || window.clipboardData;
         if (!clipboard) return;
+
+        const targetZone = window._hoveredImageZone || null;
 
         // 1. Check direct image items
         const items = clipboard.items;
@@ -5387,12 +5604,14 @@
             if (items[i].type && items[i].type.startsWith('image/')) {
               const blob = items[i].getAsFile();
               if (blob) {
+                e.preventDefault();
+                e.stopPropagation();
                 const reader = new FileReader();
                 reader.onload = function (event) {
-                  applyPastedImage(event.target.result, window._activeImageZone);
+                  applyPastedImage(event.target.result, targetZone);
                 };
                 reader.readAsDataURL(blob);
-                return true;
+                return;
               }
             }
           }
@@ -5403,12 +5622,14 @@
           for (let i = 0; i < clipboard.files.length; i++) {
             const file = clipboard.files[i];
             if (file && file.type && file.type.startsWith('image/')) {
+              e.preventDefault();
+              e.stopPropagation();
               const reader = new FileReader();
               reader.onload = function (event) {
-                applyPastedImage(event.target.result, window._activeImageZone);
+                applyPastedImage(event.target.result, targetZone);
               };
               reader.readAsDataURL(file);
-              return true;
+              return;
             }
           }
         }
@@ -5419,50 +5640,30 @@
           if (htmlText) {
             const match = htmlText.match(/<img[^>]+src=["']([^"']+)["']/i);
             if (match && match[1]) {
-              applyPastedImage(match[1], window._activeImageZone);
-              return true;
+              e.preventDefault();
+              e.stopPropagation();
+              applyPastedImage(match[1], targetZone);
+              return;
             }
           }
-        } catch (e) {}
+        } catch (err) {}
 
-        // 4. Check text/plain starting with data:image or http
+        // 4. Check text/plain starting with data:image or image URL ( only if not typing normal text or if it's strictly an image URL )
         try {
-          const plainText = clipboard.getData('text/plain');
-          if (plainText && (plainText.startsWith('data:image/') || (plainText.startsWith('http') && (plainText.endsWith('.png') || plainText.endsWith('.jpg') || plainText.endsWith('.webp') || plainText.includes('tradingview.com/x/'))))) {
-            applyPastedImage(plainText, window._activeImageZone);
-            return true;
+          const plainText = (clipboard.getData('text/plain') || '').trim();
+          if (plainText && (plainText.startsWith('data:image/') || (/^https?:\/\/\S+(\.png|\.jpg|\.jpeg|\.webp|tradingview\.com\/x\/)/i.test(plainText)))) {
+            e.preventDefault();
+            e.stopPropagation();
+            applyPastedImage(plainText, targetZone);
+            return;
           }
-        } catch (e) {}
-
-        return false;
-      }
-
-      window.addEventListener('paste', function (e) {
-        const clipboard = e.clipboardData || window.clipboardData;
-        if (clipboard) {
-          handleClipboardData(clipboard).then(handled => {
-            if (handled) {
-              e.preventDefault();
-              e.stopPropagation();
-            }
-          });
-        }
-      }, true);
-
-      document.addEventListener('paste', function (e) {
-        const clipboard = e.clipboardData || window.clipboardData;
-        if (clipboard) {
-          handleClipboardData(clipboard).then(handled => {
-            if (handled) {
-              e.preventDefault();
-              e.stopPropagation();
-            }
-          });
-        }
+        } catch (err) {}
       }, true);
     }
 
     function goTo(i) {
+      window._hoveredImageZone = null;
+      window._activeImageZone = null;
       tabIds.forEach((id, j) => {
         const t = document.getElementById(id);
         if (t) t.classList.toggle('active', j === i);
@@ -5524,7 +5725,7 @@
     <td style="text-align:center;">
       <button class="pr-warn" onclick="toggleWarn(this)" title="Marquer comme warning" style="background:transparent;border:none;cursor:pointer;font-size:14px;opacity:0.25;transition:opacity 0.15s;">⚠</button>
     </td>
-    <td><button class="btn-delete" onclick="this.closest('tr').remove()" title="Supprimer">✕</button></td>
+    <td><button class="btn-delete" onclick="this.closest('tr').remove(); if(typeof scheduleSessionSave==='function') scheduleSessionSave();" title="Supprimer">✕</button></td>
   `;
       tb.appendChild(tr);
     }
@@ -5537,6 +5738,7 @@
     function addPastRow() {
       const tb = document.getElementById('tbody-past');
       addPastRowEl(tb, ['', '', '', '', 'inline', '', '']);
+      if (!suspendSessionSave && typeof scheduleSessionSave === 'function') scheduleSessionSave();
     }
 
     let futureRowCount = 0;
@@ -5560,7 +5762,7 @@
       <input type="number" class="fr-6 price-in-number" min="0" max="100" value="${Number(r[6]) || 0}" oninput="updatePriceInBar(this)" title="Price-in %">
       <div class="price-in-bg"><div class="price-in-bar" style="width:${Number(r[6]) || 0}%;"></div></div>
     </td>
-    <td><button class="btn-delete" onclick="this.closest('tr').remove()" title="Supprimer">✕</button></td>
+    <td><button class="btn-delete" onclick="this.closest('tr').remove(); if(typeof scheduleSessionSave==='function') scheduleSessionSave();" title="Supprimer">✕</button></td>
   `;
       tb.appendChild(tr);
     }
@@ -5573,6 +5775,7 @@
     function addFutureRow() {
       const tb = document.getElementById('tbody-future');
       addFutureRowEl(tb, ['', '', '', '', '', 'fort', '0']);
+      if (!suspendSessionSave && typeof scheduleSessionSave === 'function') scheduleSessionSave();
     }
 
     function updatePriceInBar(input) {
@@ -6250,6 +6453,8 @@
     const theseChartImgs = {}; // {zoneIdx: base64}
 
     function onJournalCategoryChange() {
+      window._hoveredImageZone = null;
+      window._activeImageZone = null;
       const cat = document.getElementById('journal-category')?.value;
       const secThese = document.getElementById('journal-section-these');
       const secNormal = document.getElementById('journal-section-normal');
@@ -6406,7 +6611,10 @@
       const f = ev.target.files[0];
       if (!f) return;
       const reader = new FileReader();
-      reader.onload = function (e) { setJournalFormImg(e.target.result); };
+      reader.onload = async function (e) {
+        const comp = await compressImage(e.target.result, 1400, 0.82);
+        setJournalFormImg(comp);
+      };
       reader.readAsDataURL(f);
     }
 
@@ -6415,7 +6623,10 @@
       const f = ev.dataTransfer.files[0];
       if (!f || !f.type.startsWith('image/')) return;
       const reader = new FileReader();
-      reader.onload = function (e) { setJournalFormImg(e.target.result); };
+      reader.onload = async function (e) {
+        const comp = await compressImage(e.target.result, 1400, 0.82);
+        setJournalFormImg(comp);
+      };
       reader.readAsDataURL(f);
     }
 
@@ -6428,6 +6639,8 @@
       if (!img) { img = document.createElement('img'); drop.insertBefore(img, drop.firstChild); }
       img.src = src;
     }
+    const setJournalImg = setJournalFormImg;
+    window.setJournalImg = setJournalFormImg;
 
     function clearJournalImg() {
       currentJournalImg = '';
@@ -6972,35 +7185,6 @@ p.tp:last-child{margin-bottom:0;}
   </div>
   ${mainContent}
 </div>
-
-  <!-- MODAL SÉLECTION PRÉCISE DES ENTRÉES DU JOURNAL -->
-  <div id="journal-picker-modal" class="journal-modal-overlay" onclick="if(event.target===this)closeJournalPickerModal()">
-    <div class="journal-modal-card">
-      <div style="padding:16px 20px; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; justify-content:space-between; align-items:center;">
-        <div>
-          <h3 style="margin:0; font-size:1.1rem; color:#ffffff; font-family:'Sora',sans-serif;">Sélectionner les entrées du Journal</h3>
-          <p style="margin:4px 0 0; font-size:0.8rem; color:#94a3b8;">Cochez exactement les jours ou analyses que vous souhaitez inclure dans le rapport.</p>
-        </div>
-        <button type="button" onclick="closeJournalPickerModal()" style="background:transparent; border:none; color:#94a3b8; font-size:18px; cursor:pointer;">✕</button>
-      </div>
-
-      <div style="padding:12px 20px; background:rgba(0,0,0,0.25); border-bottom:1px solid rgba(255,255,255,0.06); display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-        <button type="button" class="btn-secondary" onclick="toggleAllJournalEntries(true)" style="font-size:11px; padding:4px 10px;">✓ Tout sélectionner</button>
-        <button type="button" class="btn-secondary" onclick="toggleAllJournalEntries(false)" style="font-size:11px; padding:4px 10px;">✕ Tout désélectionner</button>
-        <button type="button" class="btn-secondary" onclick="selectRecentJournalEntries(7)" style="font-size:11px; padding:4px 10px;">📅 7 derniers jours</button>
-      </div>
-
-      <div id="journal-picker-list" style="flex:1; overflow-y:auto; padding:16px 20px; display:flex; flex-direction:column; gap:10px;">
-        <!-- Injected via JS -->
-      </div>
-
-      <div style="padding:14px 20px; border-top:1px solid rgba(255,255,255,0.08); background:#0c1614; display:flex; justify-content:space-between; align-items:center;">
-        <span id="journal-picker-summary" style="font-size:0.85rem; color:#cbd5e1; font-weight:600;">3 entrée(s) sélectionnée(s)</span>
-        <button type="button" class="btn-generate" onclick="closeJournalPickerModal()" style="width:auto; padding:8px 24px;">Valider la sélection</button>
-      </div>
-    </div>
-  </div>
-
 </body></html>`;
 
       const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
@@ -7010,6 +7194,37 @@ p.tp:last-child{margin-bottom:0;}
       a.download = filename + '.html';
       a.click();
       URL.revokeObjectURL(url);
+    }
+
+    function formatTextIntoPrintParagraphs(rawText, pClass, inlineStyle) {
+      function esc(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+      const raw = String(rawText || '').trim();
+      if (!raw) return '';
+      const clsAttr = pClass ? ` class="${pClass}"` : '';
+      const styleAttr = inlineStyle ? ` style="${inlineStyle}"` : '';
+      const lines = raw.split(/\r?\n/);
+      const chunks = [];
+      lines.forEach(line => {
+        const trimmed = line.trim();
+        if (!trimmed) return;
+        // If a single paragraph is very long (> 650 chars), split cleanly at sentence boundaries every ~450 chars so it never overflows a page break
+        if (trimmed.length > 650) {
+          const sentences = trimmed.match(/[^.!?]+[.!?]+\s*|[^.!?]+$/g) || [trimmed];
+          let buf = '';
+          sentences.forEach(s => {
+            if ((buf + s).length > 500 && buf.trim()) {
+              chunks.push(buf.trim());
+              buf = s;
+            } else {
+              buf += s;
+            }
+          });
+          if (buf.trim()) chunks.push(buf.trim());
+        } else {
+          chunks.push(trimmed);
+        }
+      });
+      return chunks.map(c => `<p${clsAttr}${styleAttr}>${esc(c)}</p>`).join('');
     }
 
     function exportJournalEntryPdf(id) {
@@ -7041,7 +7256,7 @@ p.tp:last-child{margin-bottom:0;}
           ? `<div class="pdf-title">${esc(e.theseTitle)}</div>` : '';
         const chartsBlock = (e.theseCharts || []).map(c => {
           const imgH = c.img ? `<div class="pdf-img-wrap"><img src="${c.img}" alt="Graphique"></div>` : '';
-          const noteH = c.note ? `<div class="pdf-note">${esc(c.note)}</div>` : '';
+          const noteH = c.note ? `<div class="pdf-note">${formatTextIntoPrintParagraphs(c.note, 'pdf-note-p')}</div>` : '';
           return imgH || noteH ? `<div class="pdf-block">${imgH}${noteH}</div>` : '';
         }).join('');
         const pdfBlocks = normaliseTheseBlocks(e);
@@ -7050,20 +7265,20 @@ p.tp:last-child{margin-bottom:0;}
           const imgsHtml = (b.imgs || []).map(src => `<div class="pdf-img-wrap" style="margin-top:10px;"><img src="${src}" alt="Graphique"></div>`).join('');
           return `<div class="pdf-block pdf-question">
         <div class="pdf-q-label">${esc(b.label)}</div>
-        <div class="pdf-text">${esc(b.text || '').replace(/\n/g, '<br>')}</div>
+        <div class="pdf-text">${formatTextIntoPrintParagraphs(b.text || '', 'pdf-p')}</div>
         ${imgsHtml}
       </div>`;
         }).join('');
         const pdfSuitesSorted = (e.theseSuites || []).slice().sort((a, b) => (a.date || '').localeCompare(b.date || '') || (a.createdAt || 0) - (b.createdAt || 0));
         const pdfSuitesBlock = pdfSuitesSorted.length ? `
       <div class="pdf-block" style="margin-top:24px;border-top:1px dashed #2a2a2a;padding-top:18px;">
-        <div style="font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#555;margin-bottom:14px;">SUITES DE LA THÈSE</div>
+        <div class="pdf-q-label" style="color:#777;margin-bottom:14px;">SUITES DE LA THÈSE</div>
         ${pdfSuitesSorted.map(s => {
           const dl = formatJournalDate(s.date) || s.date || '—';
-          return `<div style="background:#0d0d0d;border:1px solid #1e1e1e;border-left:2px solid #E87722;border-radius:3px;padding:10px 12px;margin-bottom:12px;break-inside:avoid;">
-            <div style="font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#E87722;margin-bottom:8px;">📅 ${esc(dl)}</div>
-            ${s.text ? `<div class="pdf-text">${esc(s.text).replace(/\n/g, '<br>')}</div>` : ''}
-            ${(s.imgs || []).map(src => `<div style="margin-top:10px;border:1px solid #1e1e1e;overflow:hidden;"><img src="${src}" style="width:100%;display:block;"></div>`).join('')}
+          return `<div class="pdf-suite-card">
+            <div class="pdf-q-label" style="margin-bottom:8px;">📅 ${esc(dl)}</div>
+            ${s.text ? `<div class="pdf-text">${formatTextIntoPrintParagraphs(s.text, 'pdf-p')}</div>` : ''}
+            ${(s.imgs || []).map(src => `<div class="pdf-img-wrap" style="margin-top:10px;"><img src="${src}" alt="Graphique"></div>`).join('')}
           </div>`;
         }).join('')}
       </div>` : '';
@@ -7071,13 +7286,13 @@ p.tp:last-child{margin-bottom:0;}
       } else {
         const analyses = normaliseJournalEntry(e);
         const imgBlock = e.img
-          ? `<div class="pdf-block pdf-img-wrap"><img src="${e.img}" alt="Performance FX"></div>` : '';
+          ? `<div class="pdf-img-wrap" style="margin-bottom:14px;"><img src="${e.img}" alt="Performance FX"></div>` : '';
         const imgNoteBlock = e.imgNote
-          ? `<div class="pdf-note" style="margin-bottom:20px;">${esc(e.imgNote)}</div>` : '';
+          ? `<div class="pdf-note" style="margin-bottom:20px;">${formatTextIntoPrintParagraphs(e.imgNote, 'pdf-note-p')}</div>` : '';
         const analysesBlock = analyses.map(a => {
           const assetChip = a.asset ? `<span class="pdf-asset">${esc(a.asset)}</span>` : '';
           const biasChip = a.bias ? `<span class="pdf-bias" style="background:${biasBgMap[a.bias] || '#111'};color:${biasColorMap[a.bias] || '#888'};border-color:${biasBorderMap[a.bias] || '#444'};">${biasLabelMap[a.bias] || a.bias}</span>` : '';
-          const textH = a.text ? `<div class="pdf-text">${esc(a.text).replace(/\n/g, '<br>')}</div>` : '';
+          const textH = a.text ? `<div class="pdf-text">${formatTextIntoPrintParagraphs(a.text, 'pdf-p')}</div>` : '';
           const aImgsPdf = a.imgs?.length ? a.imgs : (a.img ? [a.img] : []);
           const imgH = aImgsPdf.map(src => `<div class="pdf-img-wrap" style="margin-top:10px;"><img src="${src}" alt="Graphique"></div>`).join('');
           return `<div class="pdf-block">
@@ -7095,79 +7310,75 @@ p.tp:last-child{margin-bottom:0;}
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-@page{margin:18mm 20mm;}
-html,body{background:#000;color:#e8e8e8;font-family:'Sora',sans-serif;font-size:13.5px;line-height:1.72;
-  -webkit-print-color-adjust:exact;print-color-adjust:exact;}
-.page{max-width:720px;margin:0 auto;padding:36px 28px 60px;}
+@page{size:A4;margin:0mm!important;}
+html,body{background:#000!important;color:#e8e8e8!important;font-family:'Sora',sans-serif;font-size:13px;line-height:1.7;
+  -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;width:100%;}
+.pdf-print-shell{width:100%;border-collapse:collapse;border:none;background:#000;}
+.pdf-print-shell thead td,.pdf-print-shell tfoot td{height:14mm;padding:0;border:none;background:#000;}
+.pdf-print-shell tbody td{padding:0 15mm;border:none;vertical-align:top;background:#000;}
+.page{max-width:760px;margin:0 auto;}
 /* Header */
 .pdf-header{display:flex;justify-content:space-between;align-items:flex-end;
-  border-bottom:2px solid ${accent};padding-bottom:14px;margin-bottom:28px;}
-.pdf-date{font-size:21px;font-weight:700;letter-spacing:.03em;}
+  border-bottom:2px solid ${accent};padding-bottom:14px;margin-bottom:24px;
+  break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid;}
+.pdf-date{font-size:20px;font-weight:700;letter-spacing:.03em;color:#fff;}
 .pdf-meta{text-align:right;}
 .pdf-analyste{font-size:12px;font-weight:600;color:${accent};letter-spacing:.07em;text-transform:uppercase;}
-.pdf-cat{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#555;margin-top:2px;}
-.pdf-ts{font-size:9px;color:#383838;margin-top:3px;}
+.pdf-cat{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#777;margin-top:2px;}
+.pdf-ts{font-size:9px;color:#555;margin-top:3px;}
 /* Title (these) */
-.pdf-title{font-size:18px;font-weight:700;color:${accent};margin-bottom:22px;
-  padding-bottom:12px;border-bottom:1px solid ${accent}33;letter-spacing:.02em;}
-/* Generic block — never cut mid-block */
-.pdf-block{margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid #111;
-  page-break-inside:avoid;break-inside:avoid;}
+.pdf-title{font-size:17px;font-weight:700;color:${accent};margin-bottom:20px;
+  padding-bottom:10px;border-bottom:1px solid ${accent}33;letter-spacing:.02em;
+  break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid;}
+/* Generic block — allow breaking between paragraphs inside long blocks */
+.pdf-block{margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #141414;}
 .pdf-block:last-child{border-bottom:none;}
-/* Question */
-.pdf-question{}
-.pdf-q-label{font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
-  color:${accent};margin-bottom:8px;}
+.pdf-suite-card{background:#0b0b0b;border:1px solid #1e1e1e;border-left:3px solid ${accent};border-radius:4px;padding:12px 14px;margin-bottom:14px;}
+/* Question / Section Labels */
+.pdf-q-label{font-size:9.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:${accent};margin-bottom:8px;break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid;}
 /* Images */
-.pdf-img-wrap{page-break-inside:avoid;break-inside:avoid;margin-bottom:10px;}
-.pdf-img-wrap img{width:100%;display:block;border:1px solid #1e1e1e;}
+.pdf-img-wrap{page-break-inside:avoid;break-inside:avoid;margin-bottom:10px;border:1px solid #1e1e1e;background:#050505;border-radius:4px;overflow:hidden;}
+.pdf-img-wrap img{width:100%;max-height:200mm;object-fit:contain;display:block;margin:0 auto;}
 /* Note under image */
-.pdf-note{font-size:12px;color:#777;background:#060606;border:1px solid #1a1a1a;
-  border-radius:2px;padding:8px 12px;margin-bottom:14px;line-height:1.6;
+.pdf-note{font-size:12px;color:#999;background:#080808;border:1px solid #1a1a1a;
+  border-radius:4px;padding:9px 12px;margin-bottom:14px;line-height:1.6;
   page-break-inside:avoid;break-inside:avoid;}
-/* Text */
-.pdf-text{font-size:13.5px;line-height:1.75;color:#d0d0d0;}
+.pdf-note-p{margin:0 0 6px 0;break-inside:avoid;page-break-inside:avoid;}
+.pdf-note-p:last-child{margin-bottom:0;}
+/* Atomic Paragraphs — never cut mid-paragraph */
+.pdf-text{font-size:13px;line-height:1.72;color:#d8d8d8;}
+.pdf-p{margin:0 0 9px 0;break-inside:avoid;page-break-inside:avoid;orphans:3;widows:3;text-align:left;word-break:break-word;}
+.pdf-p:last-child{margin-bottom:0;}
 /* Chips */
-.pdf-chips{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;
-  page-break-inside:avoid;break-inside:avoid;}
-.pdf-asset{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  color:${accent};border:1px solid ${accent};padding:3px 10px;border-radius:2px;}
+.pdf-chips{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;
+  page-break-inside:avoid;break-inside:avoid;page-break-after:avoid;break-after:avoid;}
+.pdf-asset{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:${accent};border:1px solid ${accent};padding:3px 10px;border-radius:3px;}
 .pdf-bias{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
-  padding:3px 9px;border-radius:2px;border:1px solid transparent;}
-@media print{
-  html,body{background:#000;}
-  .page{padding:0;}
-}
+  padding:3px 9px;border-radius:3px;border:1px solid transparent;}
 </style>
 </head><body>
-<div class="page">
-  <div class="pdf-header">
-    <div class="pdf-date">${dateLabel}</div>
-    <div class="pdf-meta">
-      <div class="pdf-analyste">${esc(analyste)}</div>
-      <div class="pdf-cat">${esc(catLabel)}</div>
-      ${tsLabel ? `<div class="pdf-ts">Màj ${esc(tsLabel)}</div>` : ''}
+<table class="pdf-print-shell">
+  <thead><tr><td></td></tr></thead>
+  <tbody><tr><td>
+    <div class="page">
+      <div class="pdf-header">
+        <div class="pdf-date">${dateLabel}</div>
+        <div class="pdf-meta">
+          <div class="pdf-analyste">${esc(analyste)}</div>
+          <div class="pdf-cat">${esc(catLabel)}</div>
+          ${tsLabel ? `<div class="pdf-ts">Màj ${esc(tsLabel)}</div>` : ''}
+        </div>
+      </div>
+      ${mainContent}
     </div>
-  </div>
-  ${mainContent}
-</div>
-<script>
-window.onload = function() {
-  // Attendre que les polices et images soient chargées
-  var imgs = document.images;
-  var loaded = 0;
-  function tryPrint() { loaded++; if (loaded >= imgs.length || imgs.length === 0) { setTimeout(function(){ window.print(); }, 400); } }
-  if (imgs.length === 0) { setTimeout(function(){ window.print(); }, 400); }
-  else { Array.from(imgs).forEach(function(img){ if (img.complete) tryPrint(); else { img.onload = tryPrint; img.onerror = tryPrint; } }); }
-};
-window.onafterprint = function() { window.close(); };
-<\/script>
+  </td></tr></tbody>
+  <tfoot><tr><td></td></tr></tfoot>
+</table>
 </body></html>`;
 
-      const win = window.open('', '_blank');
-      if (!win) { alert('Autorise les popups pour générer le PDF (icône dans la barre d\'adresse).'); return; }
-      win.document.write(html);
-      win.document.close();
+      printHtmlAsPdf(html);
     }
 
     function previewJournalEntry(id) {
@@ -7833,10 +8044,122 @@ window.onafterprint = function() { window.close(); };
       if (e.key === 'Escape') closeDlModal();
     });
 
-    // PDF haute qualité : ouvre l'impression sans jamais être bloqué par les pop-ups
+    // PDF haute qualité : pagination anti-découpe + marges noires répétées sur chaque page
     function printHtmlAsPdf(rawHtml) {
-      const html = typeof applyThemeToReport === 'function' ? applyThemeToReport(rawHtml) : rawHtml;
-      
+      let html = typeof applyThemeToReport === 'function' ? applyThemeToReport(rawHtml) : rawHtml;
+
+      const printEnhancerCssAndScript = `
+<style id="antigravity-pdf-print-fix">
+@media print {
+  @page { margin: 0mm !important; }
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .pdf-auto-shell {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    border: none !important;
+  }
+  .pdf-auto-shell > thead > tr > td,
+  .pdf-auto-shell > tfoot > tr > td {
+    height: 11mm !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+  .pdf-auto-shell > tbody > tr > td {
+    padding: 0 10mm !important;
+    border: none !important;
+    vertical-align: top !important;
+  }
+  .print-page, .page, .slide, .report-index-card, .watch-report-card, .simple-photo-report-card {
+    overflow: visible !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+  }
+  .print-page {
+    width: 100% !important;
+    padding: 2mm 4mm !important;
+    margin: 0 !important;
+  }
+  p, .pdf-p, .pdf-note, .pdf-img-wrap, .img-zone, .watch-report-photo-block, .sent-card, tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    orphans: 3 !important;
+    widows: 3 !important;
+  }
+  h1, h2, h3, .header, .pdf-header, .section-header, .pdf-title, .pdf-q-label, .pdf-chips, .img-label, .narr-title, .watch-report-head, .ric-sec-label {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+  img {
+    max-height: 195mm !important;
+    object-fit: contain !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
+</style>
+<script>
+(function() {
+  function prepareDomForPrint() {
+    // 1. Wrap body content in repeating margin shell if not already wrapped
+    if (!document.querySelector('.pdf-print-shell') && !document.querySelector('.pdf-auto-shell')) {
+      var bg = window.getComputedStyle(document.body).backgroundColor || '#000';
+      var tbl = document.createElement('table');
+      tbl.className = 'pdf-auto-shell';
+      tbl.style.background = bg;
+      tbl.innerHTML = '<thead><tr><td style="background:' + bg + ';"></td></tr></thead><tbody><tr><td id="pdf-auto-body-cell" style="background:' + bg + ';"></td></tr></tbody><tfoot><tr><td style="background:' + bg + ';"></td></tr></tfoot>';
+      var cell = tbl.querySelector('#pdf-auto-body-cell');
+      while (document.body.firstChild) {
+        cell.appendChild(document.body.firstChild);
+      }
+      document.body.appendChild(tbl);
+    }
+    // 2. Any element with break-inside:avoid that is taller than ~680px (~1 A4 page) must allow breaking inside so the browser doesn't slice text lines in half
+    var allEls = document.querySelectorAll('[style*="break-inside"], .pdf-block, .report-index-card, .watch-report-card, .simple-photo-report-card');
+    allEls.forEach(function(el) {
+      if (el.getBoundingClientRect().height > 660) {
+        el.style.setProperty('break-inside', 'auto', 'important');
+        el.style.setProperty('page-break-inside', 'auto', 'important');
+        el.style.setProperty('overflow', 'visible', 'important');
+      }
+    });
+  }
+
+  function waitForAssetsAndPrint() {
+    var imgs = Array.from(document.images || []);
+    var imgPromises = imgs.map(function(img) {
+      if (img.complete) {
+        return img.decode ? img.decode().catch(function(){}) : Promise.resolve();
+      }
+      return new Promise(function(resolve) {
+        img.onload = resolve;
+        img.onerror = resolve;
+      });
+    });
+    var fontPromise = (document.fonts && document.fonts.ready) ? document.fonts.ready.catch(function(){}) : Promise.resolve();
+    Promise.all([fontPromise].concat(imgPromises)).then(function() {
+      prepareDomForPrint();
+      setTimeout(function() {
+        window.focus();
+        window.print();
+      }, 250);
+    });
+  }
+
+  if (document.readyState === 'complete') {
+    waitForAssetsAndPrint();
+  } else {
+    window.addEventListener('load', waitForAssetsAndPrint);
+  }
+})();
+<\/script>`;
+
       // 1. Tente d'ouvrir une fenêtre directe
       let win = null;
       try {
@@ -7845,7 +8168,7 @@ window.onafterprint = function() { window.close(); };
 
       if (win && !win.closed) {
         try {
-          win.document.write(html.replace('</body>', '<script>window.onload=function(){setTimeout(function(){window.print();},600);}<\/script></body>'));
+          win.document.write(html.replace('</body>', printEnhancerCssAndScript + '</body>'));
           win.document.close();
           return;
         } catch (err) {}
@@ -7865,17 +8188,7 @@ window.onafterprint = function() { window.close(); };
           printFrame.style.border = 'none';
           document.body.appendChild(printFrame);
         }
-        printFrame.srcdoc = html;
-        printFrame.onload = function () {
-          setTimeout(() => {
-            try {
-              printFrame.contentWindow.focus();
-              printFrame.contentWindow.print();
-            } catch (e) {
-              console.warn('Iframe print error, downloading HTML as fallback:', e);
-            }
-          }, 400);
-        };
+        printFrame.srcdoc = html.replace('</body>', printEnhancerCssAndScript + '</body>');
       } catch (err) {
         const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
         downloadBlobFile(blob, 'rapport_sixnueve.html');
@@ -8281,27 +8594,28 @@ window.onafterprint = function() { window.close(); };
         journalReportHtml = sortedEntries.map(e => {
           const dl = formatJournalDate(e.date) || e.date || '—';
           const cat = journalCategoryLabels[e.category] || e.category || '';
+          const pStyle = 'margin:0 0 7px 0;font-size:12px;line-height:1.65;color:#d0d0d0;break-inside:avoid;page-break-inside:avoid;';
           
           if (e.category === 'these') {
-            const titleH = e.theseTitle ? `<div style="font-size:15px;font-weight:700;color:${reportAccentColor};margin-bottom:12px;letter-spacing:.02em;">${journalEscapeHtml(e.theseTitle)}</div>` : '';
+            const titleH = e.theseTitle ? `<div style="font-size:15px;font-weight:700;color:${reportAccentColor};margin-bottom:12px;letter-spacing:.02em;break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid;">${journalEscapeHtml(e.theseTitle)}</div>` : '';
             const chartsH = (e.theseCharts || []).map(c => {
-              const imgH = c.img ? `<div style="margin-bottom:8px;border:1px solid #1e1e1e;border-radius:6px;overflow:hidden;"><img src="${c.img}" style="width:100%;display:block;"></div>` : '';
-              const noteH = c.note ? `<div style="font-size:11px;color:#888;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:4px;padding:6px 10px;margin-bottom:12px;line-height:1.5;">${journalEscapeHtml(c.note)}</div>` : '';
+              const imgH = c.img ? `<div style="margin-bottom:8px;border:1px solid #1e1e1e;border-radius:6px;overflow:hidden;break-inside:avoid;page-break-inside:avoid;"><img src="${c.img}" style="width:100%;display:block;"></div>` : '';
+              const noteH = c.note ? `<div style="font-size:11px;color:#888;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:4px;padding:6px 10px;margin-bottom:12px;line-height:1.5;break-inside:avoid;page-break-inside:avoid;">${formatTextIntoPrintParagraphs(c.note, '', 'margin:0 0 4px 0;break-inside:avoid;')}</div>` : '';
               return imgH + noteH;
             }).join('');
             const blocksH = normaliseTheseBlocks(e).map(b => {
               if (!b.text && !(b.imgs && b.imgs.length)) return '';
-              const imgsH = (b.imgs || []).map(src => `<div style="margin-top:6px;border:1px solid #1e1e1e;border-radius:6px;overflow:hidden;"><img src="${src}" style="width:100%;display:block;"></div>`).join('');
+              const imgsH = (b.imgs || []).map(src => `<div style="margin-top:6px;border:1px solid #1e1e1e;border-radius:6px;overflow:hidden;break-inside:avoid;page-break-inside:avoid;"><img src="${src}" style="width:100%;display:block;"></div>`).join('');
               return `<div style="margin-bottom:12px;">
-                <div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:${reportAccentColor};margin-bottom:4px;">${journalEscapeHtml(b.label)}</div>
-                ${b.text ? `<div style="font-size:12px;line-height:1.6;color:#d0d0d0;">${journalEscapeHtml(b.text).replace(/\n/g, '<br>')}</div>` : ''}
+                <div style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:${reportAccentColor};margin-bottom:4px;break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid;">${journalEscapeHtml(b.label)}</div>
+                ${b.text ? formatTextIntoPrintParagraphs(b.text, '', pStyle) : ''}
                 ${imgsH}
               </div>`;
             }).join('');
             
             return `
-            <div style="background:#070e0d;border:1px solid rgba(255,255,255,0.08);border-left:3px solid ${reportAccentColor};border-radius:8px;padding:12px 14px;margin-bottom:14px;break-inside:avoid;page-break-inside:avoid;">
-              <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #141414;padding-bottom:8px;margin-bottom:10px;">
+            <div style="background:#070e0d;border:1px solid rgba(255,255,255,0.08);border-left:3px solid ${reportAccentColor};border-radius:8px;padding:12px 14px;margin-bottom:14px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #141414;padding-bottom:8px;margin-bottom:10px;break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid;">
                 <span style="font-size:12px;font-weight:700;color:#ffffff;">📅 ${journalEscapeHtml(dl)}</span>
                 <span style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#888;">${journalEscapeHtml(cat)}</span>
               </div>
@@ -8309,20 +8623,20 @@ window.onafterprint = function() { window.close(); };
             </div>`;
           } else {
             const analyses = normaliseJournalEntry(e);
-            const imgHtml = e.img ? `<div style="margin-bottom:10px;border:1px solid #1e1e1e;border-radius:6px;overflow:hidden;"><img src="${e.img}" style="width:100%;display:block;"></div>` : '';
-            const imgNoteHtml = e.imgNote ? `<div style="font-size:11px;color:#888;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:4px;padding:6px 10px;margin-bottom:12px;line-height:1.5;">${journalEscapeHtml(e.imgNote)}</div>` : '';
+            const imgHtml = e.img ? `<div style="margin-bottom:10px;border:1px solid #1e1e1e;border-radius:6px;overflow:hidden;break-inside:avoid;page-break-inside:avoid;"><img src="${e.img}" style="width:100%;display:block;"></div>` : '';
+            const imgNoteHtml = e.imgNote ? `<div style="font-size:11px;color:#888;background:#0a0a0a;border:1px solid #1e1e1e;border-radius:4px;padding:6px 10px;margin-bottom:12px;line-height:1.5;break-inside:avoid;page-break-inside:avoid;">${formatTextIntoPrintParagraphs(e.imgNote, '', 'margin:0 0 4px 0;break-inside:avoid;')}</div>` : '';
             const analysesHtml = analyses.map(a => {
               const assetChip = a.asset ? `<span style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:${reportAccentColor};border:1px solid ${reportAccentColor};padding:2px 8px;border-radius:3px;">${journalEscapeHtml(a.asset)}</span>` : '';
               const biasChip = a.bias ? `<span style="display:inline-flex;align-items:center;gap:3px;font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;border-radius:3px;background:${jBiasBgMap[a.bias] || '#111'};color:${jBiasColorMap[a.bias] || '#888'};border:1px solid ${jBiasBorderMap[a.bias] || '#444'};">${jBiasLabelMap[a.bias] || a.bias}</span>` : '';
-              const textH = a.text ? `<div style="font-size:12px;line-height:1.6;color:#d0d0d0;margin-top:6px;">${journalEscapeHtml(a.text).replace(/\n/g, '<br>')}</div>` : '';
+              const textH = a.text ? `<div style="margin-top:6px;">${formatTextIntoPrintParagraphs(a.text, '', pStyle)}</div>` : '';
               const aImgs = a.imgs?.length ? a.imgs : (a.img ? [a.img] : []);
-              const aImgsH = aImgs.map(src => `<div style="margin-top:8px;border:1px solid #1e1e1e;border-radius:6px;overflow:hidden;"><img src="${src}" style="width:100%;display:block;"></div>`).join('');
-              return `<div style="padding:8px 0;border-bottom:1px solid #111;"><div style="display:flex;align-items:center;gap:6px;">${assetChip}${biasChip}</div>${textH}${aImgsH}</div>`;
+              const aImgsH = aImgs.map(src => `<div style="margin-top:8px;border:1px solid #1e1e1e;border-radius:6px;overflow:hidden;break-inside:avoid;page-break-inside:avoid;"><img src="${src}" style="width:100%;display:block;"></div>`).join('');
+              return `<div style="padding:8px 0;border-bottom:1px solid #111;"><div style="display:flex;align-items:center;gap:6px;break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid;">${assetChip}${biasChip}</div>${textH}${aImgsH}</div>`;
             }).join('');
 
             return `
-            <div style="background:#070e0d;border:1px solid rgba(255,255,255,0.08);border-left:3px solid ${reportAccentColor};border-radius:8px;padding:12px 14px;margin-bottom:14px;break-inside:avoid;page-break-inside:avoid;">
-              <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #141414;padding-bottom:8px;margin-bottom:10px;">
+            <div style="background:#070e0d;border:1px solid rgba(255,255,255,0.08);border-left:3px solid ${reportAccentColor};border-radius:8px;padding:12px 14px;margin-bottom:14px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #141414;padding-bottom:8px;margin-bottom:10px;break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid;">
                 <span style="font-size:12px;font-weight:700;color:#ffffff;">📅 ${journalEscapeHtml(dl)}</span>
                 <span style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#888;">${journalEscapeHtml(cat)}</span>
               </div>
@@ -8347,16 +8661,22 @@ window.onafterprint = function() { window.close(); };
         const n = parseInt(full, 16);
         return `rgb(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255})`;
       }
-      const fundTopRowsHtml = fundRows.map((row) => {
-        const accentHex = getFieldColor(row.pctId, row.fallback);
-        const accentColor = hexToRgbInline(accentHex);
-        const _rawBorder = document.getElementById(row.cardId)?.style.borderLeftColor || '';
-        const borderColor = _rawBorder ? (_rawBorder.startsWith('rgb') ? _rawBorder : hexToRgbInline(_rawBorder)) : accentColor;
-        const textHex = getFieldColor(row.txtId, reportAccentColor);
-        const textColor = hexToRgbInline(textHex);
-        const badgeBg = hexToRgbInline(mixHexColor(accentHex, '#000000', 0.88));
-        return `<tr style="border-left:3px solid ${borderColor};"><td><div class="ccy-badge" style="color:${accentColor} !important;border-color:${accentColor} !important;background:${badgeBg};">${row.ccy}</div><span class="pct-badge" style="color:${accentColor};">${row.pct}</span></td><td class="fund-analysis-text" style="color:${textColor};">${row.txt}</td></tr>`;
-      }).join('');
+      const fundTopRowsHtml = fundRows
+        .filter(row => {
+          const cardEl = document.getElementById(row.cardId);
+          return (!cardEl || cardEl.style.display !== 'none') && (row.ccy || row.txt);
+        })
+        .map((row) => {
+          const accentHex = getFieldColor(row.pctId, row.fallback);
+          const accentColor = hexToRgbInline(accentHex);
+          const _rawBorder = document.getElementById(row.cardId)?.style.borderLeftColor || '';
+          const borderColor = _rawBorder ? (_rawBorder.startsWith('rgb') ? _rawBorder : hexToRgbInline(_rawBorder)) : accentColor;
+          const textHex = getFieldColor(row.txtId, reportAccentColor);
+          const textColor = hexToRgbInline(textHex);
+          const badgeBg = hexToRgbInline(mixHexColor(accentHex, '#000000', 0.88));
+          const formattedTxt = formatTextIntoPrintParagraphs(row.txt, '', `margin:0 0 6px 0;color:${textColor};break-inside:avoid;page-break-inside:avoid;`);
+          return `<tr style="border-left:3px solid ${borderColor};break-inside:avoid;page-break-inside:avoid;"><td><div class="ccy-badge" style="color:${accentColor} !important;border-color:${accentColor} !important;background:${badgeBg};">${row.ccy}</div><span class="pct-badge" style="color:${accentColor};">${row.pct}</span></td><td class="fund-analysis-text" style="color:${textColor};">${formattedTxt}</td></tr>`;
+        }).join('');
       // Fundamental analysis export labels (now read from bias-card fixed IDs)
       const ANA_SUBS_LABELS = [
         { key: 'eco', label: 'CROISSANCE' },
@@ -8385,6 +8705,8 @@ window.onafterprint = function() { window.close(); };
       }
       let biasHtml = '';
       ccys.filter(c => c.code !== 'CNY').forEach(c => {
+        const cardDom = document.getElementById('bias-body-' + c.code)?.closest('.bias-card');
+        if (cardDom && cardDom.style.display === 'none') return;
         const ctVal = document.getElementById('ct-' + c.code)?.value || '';
         const mtVal = document.getElementById('mt-' + c.code)?.value || '';
         const ctArgEl = document.getElementById('ct-arg-' + c.code);
@@ -8407,45 +8729,8 @@ window.onafterprint = function() { window.close(); };
         const cbSummaryVal = (cbSummaryEl?.value || '').trim();
         const cbSummaryColor = cbSummaryEl ? (cbSummaryEl.dataset.color || cbSummaryEl.style.color || reportTextColor) : reportTextColor;
 
-        // Fundamental analysis block — read from new bias-card fixed IDs
-        const fundSubItems = ANA_SUBS_LABELS.map(s => {
-          const el = document.getElementById('bias-' + s.key + '-' + c.code);
-          const val = (el?.value || '').trim();
-          const rawColor = el ? (el.dataset.color || el.style.color || '') : '';
-          const subColor = (rawColor && !rawColor.includes('var(')) ? rawColor : reportAccentColor;
-          if (!val) return null;
-          return `<div style="padding:0;border-right:1px solid #1a1a1a;border-bottom:1px solid #1a1a1a;border-left:3px solid ${subColor};overflow:hidden;background:#000000;">`
-            + `<div style="background:#000000;padding:5px 12px 4px;border-bottom:1px solid #1a1a1a;">`
-            + `<span style="font-size:9px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:${subColor};">${s.label}</span>`
-            + `</div>`
-            + `<div style="padding:10px 12px;background:#000000;">`
-            + `<p style="font-size:12px;line-height:1.65;font-weight:500;color:${subColor};word-break:break-word;">${val}</p>`
-            + `</div>`
-            + `</div>`;
-        }).filter(Boolean);
-        // Pad to even number for 2-column grid
-        while (fundSubItems.length > 0 && fundSubItems.length % 2 !== 0) {
-          fundSubItems.push('<div style="padding:10px 12px;border-bottom:1px solid #1a1a1a;"></div>');
-        }
-        const fundBlock = fundSubItems.length
-          ? `<div style="display:grid;grid-template-columns:1fr 1fr;gap:0;">${fundSubItems.join('')}</div>`
-          : '';
-
-        const reportSections = [
-          { shortLabel: 'Court terme', title: 'Court terme', bias: ctVal, text: ctArg, color: ctArgColor, titleColor: ctTitleColor },
-          { shortLabel: 'Moyen terme', title: 'Moyen terme', bias: mtVal, text: mtArg, color: mtArgColor, titleColor: mtTitleColor },
-        ];
         const bulletEls = document.querySelectorAll(`#watch-bullets-${c.code} .watch-bullet-item input`);
         const bullets = Array.from(bulletEls).map(el => el.value.trim()).filter(Boolean);
-        const watchHtmlBullets = bullets.length ? `<div class="report-index-watch">
-      <div class="report-index-watch-title" style="color:${watchTitleColor} !important;">À surveiller</div>
-      ${bullets.map(b => `<div class="report-index-watch-item" style="color:${watchBulletColor} !important;"><span style="color:${watchTitleColor} !important;">▸</span>${b}</div>`).join('')}
-    </div>` : `<div class="report-index-watch"><div class="report-index-watch-title" style="color:${watchTitleColor} !important;">À surveiller</div><div class="report-index-watch-empty">Aucun point renseigné.</div></div>`;
-
-        // ── Fondamentaux colonne gauche ──
-        const rFundLeft = fundSubItems.length
-          ? fundSubItems.map(item => item).join('')
-          : '<p style="font-size:11px;color:#333;padding:8px 10px;margin:0;">—</p>';
 
         // Reconstruire fundSubItems sans grille 2-col (liste verticale pour col gauche)
         const rFundLeftItems = ANA_SUBS_LABELS.map(s => {
@@ -8454,15 +8739,15 @@ window.onafterprint = function() { window.close(); };
           const rawColor = el ? (el.dataset.color || el.style.color || '') : '';
           const sc = (rawColor && !rawColor.includes('var(')) ? rawColor : reportAccentColor;
           return val
-            ? `<div style="border-left:3px solid ${sc};background:#060606;border-bottom:1px solid #141414;margin-bottom:6px;">
+            ? `<div style="border-left:3px solid ${sc};background:#060606;border-bottom:1px solid #141414;margin-bottom:6px;break-inside:avoid;page-break-inside:avoid;">
             <div style="padding:4px 10px 3px;border-bottom:1px solid #141414;">
               <span style="font-size:8px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:${sc};">${s.label}</span>
             </div>
             <div style="padding:7px 10px;">
-              <p style="font-size:11px;line-height:1.6;font-weight:500;color:${sc};word-break:break-word;margin:0;">${val}</p>
+              ${formatTextIntoPrintParagraphs(val, '', `font-size:11px;line-height:1.6;font-weight:500;color:${sc};word-break:break-word;margin:0 0 4px 0;break-inside:avoid;`)}
             </div>
           </div>`
-            : `<div style="border-left:3px solid #1e1e1e;background:#040404;border-bottom:1px solid #141414;margin-bottom:6px;">
+            : `<div style="border-left:3px solid #1e1e1e;background:#040404;border-bottom:1px solid #141414;margin-bottom:6px;break-inside:avoid;page-break-inside:avoid;">
             <div style="padding:4px 10px 3px;border-bottom:1px solid #141414;">
               <span style="font-size:8px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#2a2a2a;">${s.label}</span>
             </div>
@@ -8474,16 +8759,16 @@ window.onafterprint = function() { window.close(); };
         const rShotImg = getImg('img-idx-' + c.code);
         const rShotTitle = formatPhotoTitle('Screenshot ' + c.code, shotTimeframe);
         const rColRight = `
-      ${rShotImg ? `<div style="margin-bottom:8px;">
+      ${rShotImg ? `<div style="margin-bottom:8px;break-inside:avoid;page-break-inside:avoid;">
         <div style="font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:${shotTitleColor};margin-bottom:4px;">${rShotTitle}</div>
         <div style="border:1px solid #1a1a1a;overflow:hidden;background:#050505;">${rShotImg}</div>
       </div>` : ''}
-      ${cbImg ? `<div style="margin-bottom:8px;">
+      ${cbImg ? `<div style="margin-bottom:8px;break-inside:avoid;page-break-inside:avoid;">
         <div style="font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:${cbShotTitleColor};margin-bottom:4px;">${cbShotTitle}</div>
         <div style="border:1px solid #1a1a1a;overflow:hidden;background:#050505;">${cbImg}</div>
       </div>` : ''}
       ${!rShotImg && !cbImg ? '<p style="font-size:11px;color:#333;margin-bottom:8px;">Aucun screenshot.</p>' : ''}
-      <div style="background:#060606;border:1px solid #1a1a1a;padding:9px 11px;">
+      <div style="background:#060606;border:1px solid #1a1a1a;padding:9px 11px;break-inside:avoid;page-break-inside:avoid;">
         <div style="font-size:8px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:${watchTitleColor};margin-bottom:5px;">À SURVEILLER</div>
         ${bullets.length
             ? bullets.map(b => `<div style="font-size:10.5px;line-height:1.5;color:${watchBulletColor};margin-bottom:3px;display:flex;gap:6px;"><span style="color:${watchTitleColor};flex-shrink:0;">▸</span>${b}</div>`).join('')
@@ -8492,27 +8777,27 @@ window.onafterprint = function() { window.close(); };
 
         // ── Bande bas pleine largeur : biais CT+MT + vision ──
         const rBottom = `
-      <div class="ric-biais-grid">
+      <div class="ric-biais-grid" style="break-inside:avoid;page-break-inside:avoid;">
         <div style="background:#060606;border:1px solid #1a1a1a;border-left:3px solid ${ctTitleColor};padding:9px 11px;">
           <div style="font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:${ctTitleColor};margin-bottom:5px;">COURT TERME</div>
           <div style="margin-bottom:5px;">${reportBiasChip(ctVal)}</div>
-          ${ctArg ? `<p style="font-size:10.5px;line-height:1.55;color:${ctArgColor};margin:0;">${ctArg}</p>` : ''}
+          ${ctArg ? formatTextIntoPrintParagraphs(ctArg, '', `font-size:10.5px;line-height:1.55;color:${ctArgColor};margin:0 0 4px 0;break-inside:avoid;`) : ''}
         </div>
         <div style="background:#060606;border:1px solid #1a1a1a;border-left:3px solid ${mtTitleColor};padding:9px 11px;">
           <div style="font-size:8px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:${mtTitleColor};margin-bottom:5px;">MOYEN TERME</div>
           <div style="margin-bottom:5px;">${reportBiasChip(mtVal)}</div>
-          ${mtArg ? `<p style="font-size:10.5px;line-height:1.55;color:${mtArgColor};margin:0;">${mtArg}</p>` : ''}
+          ${mtArg ? formatTextIntoPrintParagraphs(mtArg, '', `font-size:10.5px;line-height:1.55;color:${mtArgColor};margin:0 0 4px 0;break-inside:avoid;`) : ''}
         </div>
       </div>
-      ${cbSummaryVal ? `<div style="background:#060606;border:1px solid #1a1a1a;border-left:3px solid ${cbSummaryColor};padding:9px 11px;">
+      ${cbSummaryVal ? `<div style="background:#060606;border:1px solid #1a1a1a;border-left:3px solid ${cbSummaryColor};padding:9px 11px;break-inside:avoid;page-break-inside:avoid;">
         <div style="font-size:8px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#555;margin-bottom:5px;">VISION &amp; PROJECTIONS</div>
-        <p style="font-size:10.5px;line-height:1.6;color:${cbSummaryColor};word-break:break-word;margin:0;">${cbSummaryVal}</p>
+        ${formatTextIntoPrintParagraphs(cbSummaryVal, '', `font-size:10.5px;line-height:1.6;color:${cbSummaryColor};word-break:break-word;margin:0 0 4px 0;break-inside:avoid;`)}
       </div>` : ''}`;
 
         biasHtml += `
-    <div class="report-index-card" style="overflow:hidden;break-inside:avoid;page-break-inside:avoid;">
+    <div class="report-index-card">
       <!-- EN-TÊTE -->
-      <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;background:#0a0a0a;border-bottom:1px solid #1e1e1e;">
+      <div style="display:flex;align-items:center;gap:10px;padding:9px 14px;background:#0a0a0a;border-bottom:1px solid #1e1e1e;break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid;">
         <span style="font-size:20px;line-height:1;">${c.flag}</span>
         <span style="font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:${reportCurrencyTextColor};">${c.code}</span>
         <span style="font-size:11px;color:#555;letter-spacing:.03em;">— ${c.name}</span>
@@ -8637,9 +8922,9 @@ window.onafterprint = function() { window.close(); };
             if (!e.val && !img) return;
             const extraSource = e.label === 'Saisonnalité' ? extSaisEl : e.label === 'Retail' ? extRetailEl : extYieldsEl;
             const extraColor = extraSource ? (extraSource.dataset.color || extraSource.style.color || '#e8e8e8') : '#e8e8e8';
-            extrasReportHtml += `<div style="background:#050505;border:1px solid #1e1e1e;border-left:2px solid #E87722;padding:10px;">
+            extrasReportHtml += `<div style="background:#050505;border:1px solid #1e1e1e;border-left:2px solid #E87722;padding:10px;break-inside:avoid;page-break-inside:avoid;">
           <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#E87722;margin-bottom:8px;">${formatPhotoTitle(e.label, e.tf)}</div>
-          ${e.val ? `<p style="font-size:12px;color:${extraColor};line-height:1.6;margin-bottom:10px;">${e.val}</p>` : ''}
+          ${e.val ? formatTextIntoPrintParagraphs(e.val, '', `font-size:12px;color:${extraColor};line-height:1.6;margin:0 0 8px 0;break-inside:avoid;`) : ''}
           ${img ? `<div class="img-zone tall" style="margin-bottom:0;min-height:280px;">${img}</div>` : ''}
         </div>`;
           });
@@ -8648,12 +8933,12 @@ window.onafterprint = function() { window.close(); };
 
         watchHtml += `
       <div class="watch-report-card">
-        <div class="watch-report-head">
+        <div class="watch-report-head" style="break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid;">
           <span class="watch-report-pair">${pair}</span>
           ${biasHtmlW}
           ${brsfBadge}
         </div>
-        ${fundText ? `<div style="padding:10px 14px;border-bottom:1px solid #1a1a1a;border-left:3px solid var(--accent,#E87722);margin:0;background:#030303;"><div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#E87722;margin-bottom:5px;">Raison fondamentale</div><div style="font-size:12.5px;line-height:1.6;color:${fundColor};">${fundText}</div></div>` : ''}
+        ${fundText ? `<div style="padding:10px 14px;border-bottom:1px solid #1a1a1a;border-left:3px solid var(--accent,#E87722);margin:0;background:#030303;"><div style="font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#E87722;margin-bottom:5px;break-after:avoid;">Raison fondamentale</div>${formatTextIntoPrintParagraphs(fundText, '', `font-size:12.5px;line-height:1.6;color:${fundColor};margin:0 0 6px 0;break-inside:avoid;`)}</div>` : ''}
         <div class="watch-report-body">
           ${tfPhotoBlocks.length ? `<div class="watch-report-photo-grid">${tfPhotoBlocks.join('')}</div>` : ''}
         </div>
@@ -8722,9 +9007,10 @@ html,body{background:#000;margin:0;padding:0;}body{color:#e8e8e8;font-family:'So
 .brsf-badge{background:#1a1030;color:#818cf8;border:1px solid #4338ca;}
 .narr{border-left:3px solid #E87722;padding:14px 16px;margin-bottom:10px;}
 .narr-title{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:#E87722;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;}
-.narr p{font-size:12.5px;font-weight:500;line-height:1.65;color:#E87722;word-wrap:break-word;overflow-wrap:anywhere;word-break:break-word;}
-.index-grid{display:grid;grid-template-columns:1fr;gap:10px;width:100%;}
-.report-index-card{background:#000;border:1px solid #1e1e1e;overflow:hidden;word-break:break-word;}
+.narr p{font-size:12.5px;font-weight:500;line-height:1.65;color:#E87722;word-wrap:break-word;overflow-wrap:anywhere;word-break:break-word;margin-bottom:6px;}
+.narr p:last-child{margin-bottom:0;}
+.index-grid{display:grid;grid-template-columns:1fr;gap:14px;width:100%;}
+.report-index-card{background:#000;border:1px solid #1e1e1e;word-break:break-word;}
 .report-index-header{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;background:#040404;}
 .report-index-code{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:#E87722;letter-spacing:.04em;text-transform:uppercase;}
 .report-index-name{font-size:12px;color:#7a7a7a;margin-top:2px;}
@@ -8782,7 +9068,7 @@ img{max-width:100%;display:block;}
 .simple-photo-report-card{background:#000;border:1px solid #1e1e1e;padding:12px;break-inside:avoid;}
 .simple-photo-report-card.centered .img-zone{margin-left:auto;margin-right:auto;}
 .simple-photo-report-note{font-size:12.5px;line-height:1.7;font-weight:500;margin-top:10px;word-break:break-word;}
-.watch-report-card{background:#000;border-left:3px solid #E87722;margin-bottom:16px;break-inside:avoid;overflow:hidden;}
+.watch-report-card{background:#000;border-left:3px solid #E87722;margin-bottom:16px;}
 .watch-report-head{padding:12px 14px 10px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
 .watch-report-pair{font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:#E87722;letter-spacing:.06em;}
 .watch-report-bias{display:inline-block;padding:4px 10px;border:2px solid #333;border-radius:999px;font-family:'Sora',sans-serif;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#050505;}
@@ -8812,9 +9098,9 @@ img{max-width:100%;display:block;}
 @media print{
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
   body{background:#000;margin:0;padding:0;}
-  .print-page{page-break-after:always;break-after:page;}
-  .print-page:last-child{page-break-after:auto;break-after:auto;}
-  @page{size:${reportOrientation === 'landscape' ? 'A4 landscape' : 'A4'};margin:${printMargin};}
+  .print-page{page-break-after:always;break-after:page;overflow:visible!important;width:100%!important;box-shadow:none!important;}
+  .print-page:last-of-type{page-break-after:auto;break-after:auto;}
+  @page{size:${reportOrientation === 'landscape' ? 'A4 landscape' : 'A4'};margin:0mm!important;}
 }
 .print-page{
   width:${pdfPageWidth}mm;
@@ -8822,7 +9108,6 @@ img{max-width:100%;display:block;}
   padding:var(--page-inner-padding);
   background:#000;
   box-sizing:border-box;
-  overflow:hidden;
   max-width:100%;
   word-break:break-word;
 }
@@ -8837,6 +9122,7 @@ img{max-width:100%;display:block;}
     <div class="meta-block"><label>Semaine</label><span>${ds} — ${de}</span></div>
   </div>
 </div>
+${secOn('trades') && typeof buildWeeklyTradesReportBlock === 'function' ? buildWeeklyTradesReportBlock() : ''}
 ${secOn(1) ? `<div class="section-header"><div class="section-num">1</div><div class="section-title">Performance Forex — Semaine</div></div>` : ''}
 ${secOn(1) ? `<div class="section-body">
   <div class="perf-strip">${perfHtml}</div>
@@ -8965,13 +9251,13 @@ ${secOn(3) ? `<!-- PAGE 3 : Section 3 Sentiment & Photos Fusionnés -->
 <div class="print-page">
 <div class="section-header"><div class="section-num">3</div><div class="section-title">Sentiment de Marché &amp; Photos</div></div>
 <div class="section-body">
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-bottom:16px;border:1px solid #1e1e1e;overflow:hidden;">
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-bottom:16px;border:1px solid #1e1e1e;overflow:hidden;break-inside:avoid;page-break-inside:avoid;">
     <div class="sent-card"><label>Fear &amp; Greed Index</label><div class="sent-big" style="color:${fgC};">${fgV} / 100</div><div class="sent-sub" style="color:${fgC};">${fgL}</div></div>
     <div class="sent-card" style="border-left:1px solid #1e1e1e;border-right:1px solid #1e1e1e;border-bottom:none;"><label>Risk Sentiment</label><div class="sent-big" style="color:${riskC};">${riskV}</div></div>
     <div class="sent-card" style="border-bottom:none;"><label>VIX (Volatilité)</label><div class="sent-big" style="color:#f59e0b;">${vixV}</div><div class="sent-sub" style="color:#555;font-size:10px;font-family:'Sora';">VIX &gt; 20 = risk-off confirmé</div></div>
   </div>
-  <div class="narr"><div class="narr-title">Narratif dominant cette semaine</div><p style="color:${narrColor};">${narr}</p></div>
-  ${narr2 ? `<div class="narr" style="margin-top:10px;border-left-color:#666;"><div class="narr-title" style="color:#aaa;">Ma vision de la semaine à venir</div><p style="color:${narr2Color};">${narr2}</p></div>` : ''}
+  ${narr ? `<div class="narr"><div class="narr-title">Narratif dominant cette semaine</div>${formatTextIntoPrintParagraphs(narr, '', `color:${narrColor};break-inside:avoid;`)}</div>` : ''}
+  ${narr2 ? `<div class="narr" style="margin-top:10px;border-left-color:#666;"><div class="narr-title" style="color:#aaa;">Ma vision de la semaine à venir</div>${formatTextIntoPrintParagraphs(narr2, '', `color:${narr2Color};break-inside:avoid;`)}</div>` : ''}
   
   <div style="margin-top:18px;">
     ${(() => {
@@ -9005,19 +9291,23 @@ ${secOn(3) ? `<!-- PAGE 3 : Section 3 Sentiment & Photos Fusionnés -->
             })()}
   </div>
 </div>
+${!secOn(5) ? `<div class="footer">
+  <span>${v('service-name') || 'Éditeur de rapport'} — Rapport Fondamental Hebdomadaire</span>
+  <span>Semaine ${ds} — ${de}</span>
+</div>` : ''}
 </div>` : ''}
 
-<!-- PAGE 4 : Section 4 Watchlist -->
+${secOn(5) ? `<!-- PAGE 4 : Section 4 Watchlist -->
 <div class="print-page">
-${secOn(5) ? `<div class="section-header"><div class="section-num">4</div><div class="section-title">Watchlist — Semaine à Venir</div></div>
+<div class="section-header"><div class="section-num">4</div><div class="section-title">Watchlist — Semaine à Venir</div></div>
 <div class="section-body">
   ${watchHtml || '<div style="color:#444;font-size:12px;padding:8px 0;">Aucun setup renseigné.</div>'}
-</div>` : ''}
+</div>
 <div class="footer">
   <span>${v('service-name') || 'Éditeur de rapport'} — Rapport Fondamental Hebdomadaire</span>
   <span>Semaine ${ds} — ${de}</span>
 </div>
-</div>
+</div>` : ''}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"><\/script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"><\/script>
 <script>
@@ -9692,7 +9982,7 @@ function setImg(z,s){const o=z.querySelector('img');if(o)o.remove();const p=z.qu
       delBtn.className = 'btn-delete';
       delBtn.title = 'Supprimer';
       delBtn.textContent = '✕';
-      delBtn.onclick = function () { card.remove(); };
+      delBtn.onclick = function () { card.remove(); if (typeof scheduleSessionSave === 'function') scheduleSessionSave(); };
       const stratWrap = document.createElement('div');
       stratWrap.style.cssText = 'display:inline-flex;align-items:center;gap:5px;flex-shrink:0;';
       const stratLabel = document.createElement('span');
@@ -10433,13 +10723,16 @@ html,body{background:#000;color:#e8e8e8;font-family:'Sora',sans-serif;font-size:
       }
     }
 
+    let isCloudPulling = false;
+    let syncedUserId = null;
+
     async function forceRestoreFromCloud() {
       if (!sb || !currentUser) { showToast('Connecte-toi d\'abord.', 3000); return; }
       if (!confirm('Restaurer toutes les données depuis le cloud ?')) return;
       showToast('⟳ Restauration depuis le cloud…', 2000);
-      await pullReportStateFromCloud();
-      await pullJournalFromCloud();
-      await pullImagesFromCloud();
+      syncedUserId = null;
+      isCloudPulling = false;
+      await onAuthReady();
       showToast('✓ Données restaurées depuis le cloud', 3000);
     }
 
@@ -10451,6 +10744,8 @@ html,body{background:#000;color:#e8e8e8;font-family:'Sora',sans-serif;font-size:
       }
       if (sb) { try { await sb.auth.signOut(); } catch (err) { } }
       currentUser = null;
+      syncedUserId = null;
+      isCloudPulling = false;
       reportDataReady = false;
       // PAS de location.reload() — on réaffiche juste la gate d'auth.
       // Le DOM reste intact. À la reconnexion, pullReportStateFromCloud() recharge depuis le cloud.
@@ -10495,12 +10790,41 @@ html,body{background:#000;color:#e8e8e8;font-family:'Sora',sans-serif;font-size:
     }
 
     async function onAuthReady() {
-      // Persistance pure cloud : pull depuis Supabase → source de vérité unique.
-      // pullReportStateFromCloud() met reportDataReady = true à la fin du pull.
-      await pullReportStateFromCloud();
-      await pullJournalFromCloud();
-      await pullImagesFromCloud();
+      if (!sb || !currentUser || !currentUser.id) return;
+      if (isCloudPulling || syncedUserId === currentUser.id) return;
+      isCloudPulling = true;
+      try {
+        // Parallel pull from cloud for high-speed reconnection
+        await Promise.allSettled([
+          pullReportStateFromCloud(),
+          pullJournalFromCloud(),
+          pullImagesFromCloud()
+        ]);
+        syncedUserId = currentUser.id;
+      } finally {
+        isCloudPulling = false;
+      }
     }
+
+    // Parent window auth synchronization bridge
+    window.addEventListener('message', async (e) => {
+      if (!e.data) return;
+      if (e.data.type === 'SYNC_AUTH_USER' && e.data.user) {
+        const wasUser = currentUser;
+        currentUser = e.data.user;
+        cloudUnavailable = false;
+        refreshAuthUI();
+        if (currentUser && (!wasUser || wasUser.id !== currentUser.id || syncedUserId !== currentUser.id)) {
+          await onAuthReady();
+        }
+      }
+    });
+
+    try {
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: 'REQUEST_AUTH_USER' }, '*');
+      }
+    } catch (e) {}
 
     async function initSupabaseAuth() {
       if (!sb) { cloudUnavailable = true; refreshAuthUI(); return; }
@@ -10517,12 +10841,16 @@ html,body{background:#000;color:#e8e8e8;font-family:'Sora',sans-serif;font-size:
         return;
       }
       refreshAuthUI();
-      if (currentUser) await onAuthReady();
+      if (currentUser && syncedUserId !== currentUser.id) await onAuthReady();
       if (sb.auth.onAuthStateChange) {
-        sb.auth.onAuthStateChange((_event, session) => {
+        sb.auth.onAuthStateChange(async (_event, session) => {
+          const wasUser = currentUser;
           currentUser = session ? session.user : null;
           cloudUnavailable = false;
           refreshAuthUI();
+          if (currentUser && (!wasUser || wasUser.id !== currentUser.id || syncedUserId !== currentUser.id)) {
+            await onAuthReady();
+          }
         });
       }
     }
@@ -11091,6 +11419,10 @@ html,body{background:#000;color:#e8e8e8;font-family:'Sora',sans-serif;font-size:
       } finally {
         suspendSessionSave = false;
       }
+      try {
+        const lightSnapshot = collectSessionData({ includeImages: false });
+        localStorage.setItem('fonda_session_v1', JSON.stringify(lightSnapshot));
+      } catch (e) {}
       // Pas de scheduleCloudSync ici : après un pull cloud on ne re-pousse pas.
       // Après un import fichier, c'est importSessionFile() qui déclenche le push.
       const suffix = state.meta?.imagesExcluded ? ' (sans captures)' : '';
@@ -11115,6 +11447,10 @@ html,body{background:#000;color:#e8e8e8;font-family:'Sora',sans-serif;font-size:
           const lightPayload = collectSessionData({ includeImages: false });
           localStorage.setItem(LOCAL_SESSION_KEY, JSON.stringify(lightPayload));
         }
+        try {
+          const lightForBridge = collectSessionData({ includeImages: false });
+          localStorage.setItem('fonda_session_v1', JSON.stringify(lightForBridge));
+        } catch (bridgeErr) {}
       } catch (err) {
         console.error('saveLocalSession error:', err);
       }
@@ -11202,23 +11538,26 @@ html,body{background:#000;color:#e8e8e8;font-family:'Sora',sans-serif;font-size:
         }, { onConflict: 'user_id' });
         if (error) {
           console.warn('pushReportStateToCloud error:', error);
+          showSaveIndicator(false);
         } else {
-          showSaveIndicator();
+          showSaveIndicator(true);
         }
       } catch (err) {
         console.warn('pushReportStateToCloud catch:', err);
+        showSaveIndicator(false);
       }
     }
 
-    function showSaveIndicator() {
+    function showSaveIndicator(success = true) {
       let dot = document.getElementById('cloud-save-dot');
       if (!dot) {
         dot = document.createElement('div');
         dot.id = 'cloud-save-dot';
-        dot.title = 'Données sauvegardées dans le cloud';
-        dot.style.cssText = 'position:fixed;bottom:14px;right:18px;width:9px;height:9px;border-radius:50%;background:#22c55e;opacity:0;transition:opacity 0.3s;z-index:9999;pointer-events:none;';
+        dot.style.cssText = 'position:fixed;bottom:14px;right:18px;width:9px;height:9px;border-radius:50%;opacity:0;transition:opacity 0.3s;z-index:9999;pointer-events:none;';
         document.body.appendChild(dot);
       }
+      dot.title = success ? 'Données sauvegardées dans le cloud' : 'Sauvegardé en local (cloud en attente)';
+      dot.style.background = success ? '#22c55e' : '#f59e0b';
       dot.style.opacity = '1';
       clearTimeout(dot._timer);
       dot._timer = setTimeout(() => { dot.style.opacity = '0'; }, 1500);
@@ -11240,6 +11579,19 @@ html,body{background:#000;color:#e8e8e8;font-family:'Sora',sans-serif;font-size:
           }
           const merged = Object.assign({}, cloudData, { journal: journalEntries, images: { ...imgStore } });
           applySessionData(merged);
+          // Silently cache cloud state in local storage without triggering any cloud sync
+          try {
+            const lightPayload = collectSessionData({ includeImages: false });
+            localStorage.setItem(LOCAL_SESSION_KEY, JSON.stringify(lightPayload));
+            localStorage.setItem(LOCAL_BACKUP_KEY, JSON.stringify(lightPayload));
+          } catch (e) {}
+        } else {
+          // If no cloud data exists yet for this user, check if we have local session and push it once
+          const localRaw = localStorage.getItem(LOCAL_SESSION_KEY);
+          if (localRaw) {
+            reportDataReady = true;
+            scheduleCloudSync(1000);
+          }
         }
       } catch (err) {
         console.warn('pullReportStateFromCloud error:', err);
@@ -11253,8 +11605,9 @@ html,body{background:#000;color:#e8e8e8;font-family:'Sora',sans-serif;font-size:
       document.addEventListener('input', () => scheduleCloudSync(), true);
       document.addEventListener('change', () => scheduleCloudSync(), true);
 
-      // Fermeture d'onglet : push immédiat (meilleur effort)
+      // Fermeture d'onglet / Rafraîchissement F5 : sauvegarde locale synchrone immédiate (indestructible)
       window.addEventListener('beforeunload', () => {
+        saveLocalSession();
         saveJournalToStorage();
         if (sb && currentUser && reportDataReady) {
           clearTimeout(cloudSyncTimer);
@@ -11272,10 +11625,6 @@ html,body{background:#000;color:#e8e8e8;font-family:'Sora',sans-serif;font-size:
           }
         }
       });
-
-      // DOM dynamique (ajout de cartes watchlist, zones chart…)
-      const observer = new MutationObserver(() => scheduleCloudSync());
-      observer.observe(document.body, { childList: true, subtree: true });
     }
 
     function buildWatchTable() {
@@ -11575,62 +11924,425 @@ html,body{background:#000;color:#e8e8e8;font-family:'Sora',sans-serif;font-size:
     
     function initPreloadedData() {
       try {
+        // 1. Instant 0ms local session restore (indestructible offline-first recovery)
+        const localRestored = restoreLocalSession();
+
+        // 2. Restore local journal
         const hasJournal = localStorage.getItem(JOURNAL_STORAGE_KEY);
-        if (!hasJournal && PRELOADED_SESSION.journal) {
+        if (hasJournal) {
+          restoreJournalFromStorage();
+        } else if (PRELOADED_SESSION.journal && (!journalEntries || !journalEntries.length)) {
           journalEntries = PRELOADED_SESSION.journal.slice();
           saveJournalToStorage();
           renderJournalEntries();
         }
-        
-        const hasFields = document.getElementById("analyste-name") && document.getElementById("analyste-name").value !== "Julien";
-        if (PRELOADED_SESSION.fields) {
-          // Apply initial fields if not already modified
-          applySessionData(PRELOADED_SESSION);
+
+        // 3. ONLY if NO local session was found, apply preloaded session as default template
+        if (!localRestored) {
+          const analysteEl = document.getElementById("analyste-name");
+          const hasUserInput = analysteEl && analysteEl.value && analysteEl.value !== "Julien";
+          if (!hasUserInput && PRELOADED_SESSION.fields) {
+            console.log('No local session found, initializing with default template');
+            applySessionData(PRELOADED_SESSION);
+          }
+        } else {
+          console.log('Successfully restored user session from local cache (0ms)');
         }
       } catch(e) {
-        console.error("Error applying preloaded session", e);
+        console.error("Error initializing session data:", e);
       }
     }
 
     
-    // ── Two-Way Live Sync with Macro Insights Dashboard ───────────
-    function syncWithMacroDashboard() {
+    // ── Complete Live Sync Engine with Main Dashboard (`SYNC_DASHBOARD_DATA`) ───────────
+    let latestDashboardSyncPayload = null;
+    let forceNextDashboardOverwrite = false;
+
+    const CB_TO_CCY_MAP = {
+      FED: 'USD',
+      ECB: 'EUR',
+      BOE: 'GBP',
+      BOJ: 'JPY',
+      BOC: 'CAD',
+      RBA: 'AUD',
+      RBNZ: 'NZD',
+      SNB: 'CHF'
+    };
+
+    function extractTradePnlUsd(trade) {
+      if (!trade || typeof trade !== 'object') return 0;
+      const raw = trade.netDollar ?? trade.pnl ?? trade.pnl_usd ?? trade.realizedPnl ?? 0;
+      const parsed = parseFloat(raw);
+      return Number.isNaN(parsed) ? 0 : parsed;
+    }
+
+    function extractTradeRealizedR(trade, pnlVal) {
+      if (!trade || typeof trade !== 'object') return 0;
+      const rawR = trade.realizedR ?? trade.r_multiple ?? trade.rMultiple;
+      if (rawR !== undefined && rawR !== null && rawR !== '') {
+        const parsedR = parseFloat(rawR);
+        if (!Number.isNaN(parsedR) && parsedR !== 0) return parsedR;
+      }
+      const riskVal = parseFloat(trade.risk ?? trade.risk_usd ?? 0);
+      if (riskVal > 0 && pnlVal) {
+        return Number((pnlVal / riskVal).toFixed(2));
+      }
+      const fallbackR = parseFloat(rawR);
+      return Number.isNaN(fallbackR) ? 0 : fallbackR;
+    }
+
+    function formatSignedUsd(amount) {
+      const val = Number(amount) || 0;
+      const sign = val >= 0 ? '+' : '-';
+      return `${sign}$${Math.abs(val).toFixed(2)}`;
+    }
+
+    function formatSignedR(rVal) {
+      const val = Number(rVal) || 0;
+      const sign = val >= 0 ? '+' : '';
+      const clean = Number.isInteger(val) ? val.toString() : val.toFixed(2).replace(/\.?0+$/, '');
+      return `(${sign}${clean}R)`;
+    }
+
+    function requestDashboardSync(forceOverwrite = false) {
+      forceNextDashboardOverwrite = Boolean(forceOverwrite);
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: 'REQUEST_DASHBOARD_SYNC' }, '*');
+      }
+      // Also run immediate localStorage fallback sync
+      syncWithMacroDashboard(latestDashboardSyncPayload, forceNextDashboardOverwrite);
+    }
+
+    function renderWeeklyTradesSummaryUI(closedTrades = []) {
+      const container = document.getElementById('weekly-trades-summary-body');
+      if (!container) return;
+
+      const list = Array.isArray(closedTrades) ? closedTrades.filter(Boolean) : [];
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div style="color:#a1a1aa; font-size:12.5px; padding:8px 0;">
+            Aucun trade clôturé (statut <code>CLOSED</code>) trouvé dans le journal pour cette période. Clôturez une position dans le Dashboard pour alimenter automatiquement ce bilan.
+          </div>
+        `;
+        return;
+      }
+
+      let totalPnl = 0;
+      let totalR = 0;
+      let grossProfit = 0;
+      let grossLoss = 0;
+      let wins = 0;
+
+      list.forEach(t => {
+        const pnl = extractTradePnlUsd(t);
+        const rVal = extractTradeRealizedR(t, pnl);
+        totalPnl += pnl;
+        totalR += rVal;
+        if (pnl > 0) {
+          wins++;
+          grossProfit += pnl;
+        } else if (pnl < 0) {
+          grossLoss += Math.abs(pnl);
+        }
+      });
+
+      const winRate = ((wins / list.length) * 100).toFixed(1);
+      const profitFactor = grossLoss > 0 ? (grossProfit / grossLoss).toFixed(2) : (grossProfit > 0 ? '∞' : '0.00');
+      const sortedByImpact = [...list].sort((a, b) => Math.abs(extractTradePnlUsd(b)) - Math.abs(extractTradePnlUsd(a)));
+      const topTrades = sortedByImpact.slice(0, 6);
+      const pnlColor = totalPnl >= 0 ? '#00e676' : '#ff5252';
+
+      container.innerHTML = `
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:10px; margin-bottom:14px;">
+          <div style="background:#09090b; border:1px solid #27272a; border-radius:8px; padding:10px 12px;">
+            <span style="font-size:10px; color:#a1a1aa; text-transform:uppercase; font-weight:700; display:block;">Total PnL Net</span>
+            <strong style="font-size:1.2rem; color:${pnlColor}; font-family:'JetBrains Mono',monospace;">${formatSignedUsd(totalPnl)} <span style="font-size:0.88rem; opacity:0.9;">${formatSignedR(Number(totalR.toFixed(2)))}</span></strong>
+          </div>
+          <div style="background:#09090b; border:1px solid #27272a; border-radius:8px; padding:10px 12px;">
+            <span style="font-size:10px; color:#a1a1aa; text-transform:uppercase; font-weight:700; display:block;">Win Rate</span>
+            <strong style="font-size:1.2rem; color:#f4f4f5; font-family:'JetBrains Mono',monospace;">${winRate}% <span style="font-size:11px; color:#a1a1aa;">(${wins}/${list.length})</span></strong>
+          </div>
+          <div style="background:#09090b; border:1px solid #27272a; border-radius:8px; padding:10px 12px;">
+            <span style="font-size:10px; color:#a1a1aa; text-transform:uppercase; font-weight:700; display:block;">Profit Factor</span>
+            <strong style="font-size:1.2rem; color:#26a69a; font-family:'JetBrains Mono',monospace;">${profitFactor}</strong>
+          </div>
+          <div style="background:#09090b; border:1px solid #27272a; border-radius:8px; padding:10px 12px;">
+            <span style="font-size:10px; color:#a1a1aa; text-transform:uppercase; font-weight:700; display:block;">Positions Clôturées</span>
+            <strong style="font-size:1.2rem; color:#f4f4f5; font-family:'JetBrains Mono',monospace;">${list.length}</strong>
+          </div>
+        </div>
+        <div style="font-size:11px; font-weight:700; color:#a1a1aa; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px;">Trades Marquants de la Semaine</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:8px;">
+          ${topTrades.map(t => {
+            const p = extractTradePnlUsd(t);
+            const r = extractTradeRealizedR(t, p);
+            const c = p >= 0 ? '#00e676' : '#ff5252';
+            const dStr = (t.exitDate || t.entryDate || t.date || '').slice(0, 10);
+            return `
+              <div style="background:#09090b; border:1px solid #27272a; border-left:3px solid ${c}; border-radius:6px; padding:8px 10px; display:flex; justify-content:space-between; align-items:center; gap:8px;">
+                <div>
+                  <strong style="color:#f4f4f5; font-size:12.5px;">${t.ticker || 'FX'}</strong>
+                  <span style="font-size:10.5px; color:${t.direction === 'Long' ? '#00e676' : '#ff5252'}; font-weight:700; margin-left:6px;">${t.direction || ''}</span>
+                  <div style="font-size:10px; color:#71717a;">${dStr} ${t.strategy ? '• ' + t.strategy : ''}</div>
+                </div>
+                <strong style="color:${c}; font-family:'JetBrains Mono',monospace; font-size:12.5px; white-space:nowrap;">
+                  ${formatSignedUsd(p)} <span style="font-size:11px; opacity:0.9;">${formatSignedR(r)}</span>
+                </strong>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function buildWeeklyTradesReportBlock() {
+      const closedTrades = (latestDashboardSyncPayload && Array.isArray(latestDashboardSyncPayload.closedTrades))
+        ? latestDashboardSyncPayload.closedTrades
+        : [];
+      if (!closedTrades.length) return '';
+
+      let totalPnl = 0;
+      let totalR = 0;
+      let grossProfit = 0;
+      let grossLoss = 0;
+      let wins = 0;
+      closedTrades.forEach(t => {
+        const pnl = extractTradePnlUsd(t);
+        const rVal = extractTradeRealizedR(t, pnl);
+        totalPnl += pnl;
+        totalR += rVal;
+        if (pnl > 0) { wins++; grossProfit += pnl; }
+        else if (pnl < 0) { grossLoss += Math.abs(pnl); }
+      });
+
+      const winRate = ((wins / closedTrades.length) * 100).toFixed(1);
+      const profitFactor = grossLoss > 0 ? (grossProfit / grossLoss).toFixed(2) : (grossProfit > 0 ? '∞' : '0.00');
+      const pnlColor = totalPnl >= 0 ? '#22c55e' : '#ef4444';
+      const topTrades = [...closedTrades]
+        .sort((a, b) => Math.abs(extractTradePnlUsd(b)) - Math.abs(extractTradePnlUsd(a)))
+        .slice(0, 6);
+
+      return `
+        <div class="section-header"><div class="section-num">★</div><div class="section-title">Bilan des Trades de la Semaine</div></div>
+        <div class="section-body" style="break-inside:avoid; page-break-inside:avoid;">
+          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:12px;">
+            <div style="background:#050505; border:1px solid #1e1e1e; border-top:2px solid ${pnlColor}; padding:10px 12px; text-align:center;">
+              <span style="font-size:9px; color:#888; text-transform:uppercase; letter-spacing:0.1em; display:block;">Total PnL Net</span>
+              <strong style="font-size:17px; color:${pnlColor};">${formatSignedUsd(totalPnl)} ${formatSignedR(Number(totalR.toFixed(2)))}</strong>
+            </div>
+            <div style="background:#050505; border:1px solid #1e1e1e; border-top:2px solid #E87722; padding:10px 12px; text-align:center;">
+              <span style="font-size:9px; color:#888; text-transform:uppercase; letter-spacing:0.1em; display:block;">Win Rate</span>
+              <strong style="font-size:17px; color:#e8e8e8;">${winRate}% (${wins}/${closedTrades.length})</strong>
+            </div>
+            <div style="background:#050505; border:1px solid #1e1e1e; border-top:2px solid #E87722; padding:10px 12px; text-align:center;">
+              <span style="font-size:9px; color:#888; text-transform:uppercase; letter-spacing:0.1em; display:block;">Profit Factor</span>
+              <strong style="font-size:17px; color:#e8e8e8;">${profitFactor}</strong>
+            </div>
+            <div style="background:#050505; border:1px solid #1e1e1e; border-top:2px solid #E87722; padding:10px 12px; text-align:center;">
+              <span style="font-size:9px; color:#888; text-transform:uppercase; letter-spacing:0.1em; display:block;">Trades Clôturés</span>
+              <strong style="font-size:17px; color:#e8e8e8;">${closedTrades.length}</strong>
+            </div>
+          </div>
+          <table class="equity-table" style="margin-bottom:0;">
+            <thead>
+              <tr>
+                <th>Paire</th>
+                <th>Sens</th>
+                <th>Stratégie</th>
+                <th>Date Clôture</th>
+                <th>PnL Réalisé (R)</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${topTrades.map(t => {
+                const p = extractTradePnlUsd(t);
+                const r = extractTradeRealizedR(t, p);
+                const c = p >= 0 ? '#22c55e' : '#ef4444';
+                return `
+                  <tr>
+                    <td class="eq-name">${t.ticker || '—'}</td>
+                    <td style="color:${t.direction === 'Long' ? '#22c55e' : '#ef4444'}; font-weight:700;">${t.direction || '—'}</td>
+                    <td>${t.strategy || '—'}</td>
+                    <td>${(t.exitDate || t.entryDate || t.date || '').slice(0, 10)}</td>
+                    <td class="eq-price" style="color:${c};">${formatSignedUsd(p)} ${formatSignedR(r)}</td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function syncWithMacroDashboard(externalPayload = null, forceOverwrite = false) {
       try {
+        // Fallback to localStorage if no postMessage payload was provided yet
+        let ccyList = externalPayload && Array.isArray(externalPayload.currencyPerformance)
+          ? externalPayload.currencyPerformance
+          : null;
+        let centralBanks = externalPayload && Array.isArray(externalPayload.centralBanks)
+          ? externalPayload.centralBanks
+          : null;
+        let watchlist = externalPayload && Array.isArray(externalPayload.watchlist)
+          ? externalPayload.watchlist
+          : null;
+        let fng = externalPayload && externalPayload.fearGreed
+          ? externalPayload.fearGreed
+          : null;
+        let closedTrades = externalPayload && Array.isArray(externalPayload.closedTrades)
+          ? externalPayload.closedTrades
+          : null;
+
+        if (!fng) {
+          const fngRaw = localStorage.getItem("fear_greed_db");
+          if (fngRaw) fng = JSON.parse(fngRaw);
+        }
+        if (!ccyList) {
+          const ccyPerfRaw = localStorage.getItem("currency_performance_db");
+          if (ccyPerfRaw) ccyList = JSON.parse(ccyPerfRaw);
+        }
+        if (!centralBanks) {
+          const cbRaw = localStorage.getItem("central_banks_db");
+          if (cbRaw) centralBanks = JSON.parse(cbRaw);
+        }
+        if (!watchlist) {
+          const wlRaw = localStorage.getItem("watchlist_db");
+          if (wlRaw) watchlist = JSON.parse(wlRaw);
+        }
+        if (!closedTrades) {
+          const jRaw = localStorage.getItem("live_journal_db");
+          if (jRaw) {
+            const parsedJ = JSON.parse(jRaw);
+            if (Array.isArray(parsedJ)) {
+              closedTrades = parsedJ.filter(t => t && (
+                t.status === 'CLOSED' ||
+                (t.status !== 'OPEN' && t.exitDate && t.exitDate !== 'null' && t.result !== 'Open')
+              ));
+            }
+          }
+        }
+
+        latestDashboardSyncPayload = {
+          currencyPerformance: ccyList || [],
+          centralBanks: centralBanks || [],
+          watchlist: watchlist || [],
+          fearGreed: fng || { value: 24, classification: 'Extreme Fear' },
+          closedTrades: closedTrades || []
+        };
+
         // 1. Sync Fear & Greed
-        const fngRaw = localStorage.getItem("fear_greed_db");
-        if (fngRaw) {
-          const fng = JSON.parse(fngRaw);
+        if (fng && fng.value !== undefined) {
           const fgInput = document.getElementById("fg-val");
-          if (fgInput && fng.value !== undefined && !fgInput.value) {
+          if (fgInput && (forceOverwrite || !fgInput.value)) {
             fgInput.value = fng.value;
             if (typeof updateFgColor === "function") updateFgColor(fgInput);
           }
         }
 
-        // 2. Sync Currency Performance from Macro Insights if empty in report
-        const ccyPerfRaw = localStorage.getItem("currency_performance_db");
-        if (ccyPerfRaw) {
-          const ccyList = JSON.parse(ccyPerfRaw);
-          if (Array.isArray(ccyList)) {
-            ccyList.forEach(item => {
-              const ccyLower = (item.currency || "").toLowerCase();
-              const input = document.getElementById("p-" + ccyLower);
-              if (input && !input.value) {
-                const valNum = parseFloat(item.value) || 0;
-                input.value = (valNum >= 0 ? "+" : "") + valNum.toFixed(2) + "%";
-                const statSelect = document.getElementById("s-" + ccyLower);
-                if (statSelect && !statSelect.value) {
-                  if (valNum >= 1.0) statSelect.value = "top";
-                  else if (valNum <= -0.5) statSelect.value = "bot";
-                }
-              }
-            });
-          }
+        // 2. Sync Currency Performance Grid + TOP 1/2 & FLOP 1/2
+        if (Array.isArray(ccyList) && ccyList.length > 0) {
+          const sorted = [...ccyList]
+            .filter(Boolean)
+            .map(item => ({
+              currency: String(item.currency || '').toUpperCase(),
+              value: parseFloat(item.value) || 0
+            }))
+            .sort((a, b) => b.value - a.value);
+
+          const topSet = new Set(sorted.slice(0, 2).map(x => x.currency));
+          const botSet = new Set(sorted.slice(-2).map(x => x.currency));
+
+          sorted.forEach(item => {
+            const ccyLower = item.currency.toLowerCase();
+            const input = document.getElementById("p-" + ccyLower);
+            const statSelect = document.getElementById("s-" + ccyLower);
+            const formattedPct = (item.value >= 0 ? "+" : "") + item.value.toFixed(2) + "%";
+
+            if (input && (forceOverwrite || !input.value)) {
+              input.value = formattedPct;
+            }
+            if (statSelect && (forceOverwrite || !statSelect.value)) {
+              if (topSet.has(item.currency)) statSelect.value = "top";
+              else if (botSet.has(item.currency)) statSelect.value = "bot";
+              else statSelect.value = "";
+            }
+          });
+
+          // Populate TOP 1, TOP 2, FLOP 1, FLOP 2 cards in Section 1
+          const top1 = sorted[0];
+          const top2 = sorted[1];
+          const flop1 = sorted[sorted.length - 1];
+          const flop2 = sorted[sorted.length - 2];
+
+          const fillTopFlopCard = (idx, item) => {
+            if (!item) return;
+            const ccyEl = document.getElementById(`f${idx}-ccy`);
+            const pctEl = document.getElementById(`f${idx}-pct`);
+            const formatted = (item.value >= 0 ? "+" : "") + item.value.toFixed(2) + "%";
+            if (ccyEl && (forceOverwrite || !pctEl || !pctEl.value)) {
+              ccyEl.value = item.currency;
+            }
+            if (pctEl && (forceOverwrite || !pctEl.value)) {
+              pctEl.value = formatted;
+            }
+          };
+
+          fillTopFlopCard(1, top1);
+          fillTopFlopCard(2, top2);
+          fillTopFlopCard(3, flop1);
+          fillTopFlopCard(4, flop2);
         }
-      } catch(e) {
+
+        // 3. Sync Central Banks Table & Monetary Policy fields (`#bias-pol-{CCY}`)
+        if (Array.isArray(centralBanks) && centralBanks.length > 0) {
+          const cbGrid = document.getElementById('synced-central-banks-grid');
+          if (cbGrid) {
+            cbGrid.innerHTML = centralBanks.map(cb => {
+              const stance = cb.stance || 'Neutre';
+              const ccy = CB_TO_CCY_MAP[cb.bank] || cb.bank;
+              const isHawk = stance === 'Restrictif';
+              const isDove = stance === 'Accommodant';
+              const badgeColor = isHawk ? '#00e676' : (isDove ? '#ff5252' : '#f59e0b');
+              const badgeBg = isHawk ? 'rgba(0,230,118,0.12)' : (isDove ? 'rgba(255,82,82,0.12)' : 'rgba(245,158,11,0.12)');
+              return `
+                <div style="background:#09090b; border:1px solid #27272a; border-radius:8px; padding:8px 10px; display:flex; flex-direction:column; gap:4px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <strong style="font-size:12px; color:#f4f4f5;">${cb.bank}</strong>
+                    <span style="font-size:10px; color:#71717a; font-weight:700;">${ccy}</span>
+                  </div>
+                  <span style="font-size:11px; font-weight:700; color:${badgeColor}; background:${badgeBg}; padding:2px 8px; border-radius:999px; text-align:center;">
+                    ${stance}
+                  </span>
+                </div>
+              `;
+            }).join('');
+          }
+
+          centralBanks.forEach(cb => {
+            const ccy = CB_TO_CCY_MAP[cb.bank];
+            if (!ccy) return;
+            const polTa = document.getElementById('bias-pol-' + ccy);
+            if (polTa && (forceOverwrite || !polTa.value.trim())) {
+              polTa.value = `${cb.bank} : Posture ${cb.stance || 'Neutre'}`;
+            }
+          });
+        }
+
+        // 4. Render Weekly Closed Trades Summary
+        renderWeeklyTradesSummaryUI(closedTrades || []);
+      } catch (e) {
         console.warn("Macro sync warning:", e);
       }
     }
+
+    // Listen for SYNC_DASHBOARD_DATA postMessage from ReportBuilder.js / main.js
+    window.addEventListener("message", function(e) {
+      if (e.data && e.data.type === "SYNC_DASHBOARD_DATA" && e.data.payload) {
+        const shouldForce = forceNextDashboardOverwrite;
+        forceNextDashboardOverwrite = false;
+        syncWithMacroDashboard(e.data.payload, shouldForce);
+      }
+    });
 
     // Listen to changes in report.html to broadcast to Macro Insights
     document.addEventListener("input", function(e) {
@@ -11643,10 +12355,13 @@ html,body{background:#000;color:#e8e8e8;font-family:'Sora',sans-serif;font-size:
       }
     });
 
-    window.addEventListener("storage", syncWithMacroDashboard);
+    window.addEventListener("storage", function() {
+      syncWithMacroDashboard(null, false);
+    });
 
     initPreloadedData();
-    syncWithMacroDashboard();
+    syncWithMacroDashboard(null, false);
+    requestDashboardSync(false);
     initSupabaseAuth();
 
 
@@ -12043,6 +12758,27 @@ html{background:${surfaceBase}!important;}
     <div class="journal-preview-inner">
       <button class="journal-preview-close" onclick="closeJournalPreview()">✕ Fermer</button>
       <div id="journal-preview-content"></div>
+    </div>
+  </div>
+
+  <!-- Journal Picker Modal -->
+  <div id="journal-picker-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(6px);" onclick="if(event.target===this)closeJournalPickerModal()">
+    <div style="background:#0d0e11;border:1px solid #2e323c;border-radius:14px;width:100%;max-width:780px;max-height:85vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,0.9);">
+      <div style="padding:18px 24px;border-bottom:1px solid #1e2028;display:flex;align-items:center;justify-content:space-between;background:#111318;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span id="jpm-title" style="font-size:15px;font-weight:800;color:var(--accent);letter-spacing:0.5px;">Sélectionner depuis le Journal</span>
+        </div>
+        <button onclick="closeJournalPickerModal()" style="background:#1c1e24;border:1px solid #2e323c;color:#c0c4cc;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700;">✕ Fermer</button>
+      </div>
+      <div style="padding:12px 24px;border-bottom:1px solid #1e2028;background:#0a0b0e;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <input type="text" id="jpm-search" placeholder="Rechercher par date, titre, texte..." oninput="renderJournalPickerItems()" style="flex:1;min-width:200px;background:#14161c;border:1px solid #282b34;border-radius:7px;padding:8px 12px;color:#fff;font-family:'Sora',sans-serif;font-size:12px;outline:none;">
+        <select id="jpm-cat-filter" onchange="renderJournalPickerItems()" style="background:#14161c;border:1px solid #282b34;border-radius:7px;padding:8px 12px;color:#c0c4cc;font-family:'Sora',sans-serif;font-size:12px;outline:none;">
+          <option value="all">Toutes les catégories</option>
+          <option value="macro">📅 Analyse journalière</option>
+          <option value="these">🎯 Thèse</option>
+        </select>
+      </div>
+      <div id="jpm-list" style="padding:20px 24px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;flex:1;"></div>
     </div>
   </div>
 

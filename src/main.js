@@ -5,7 +5,7 @@ import { renderAuthView } from './modules/auth/AuthView.js';
 import { renderMacroDashboard } from './modules/macro/MacroDashboard.js';
 import { renderAntiFomoForm } from './modules/entry/AntiFomoForm.js';
 import { renderCalendarGrid } from './modules/tracker/CalendarGrid.js';
-import { renderReportBuilder } from './modules/report/ReportBuilder.js';
+import { renderReportBuilder, syncReportIframe } from './modules/report/ReportBuilder.js';
 
 class App {
     constructor() {
@@ -17,6 +17,9 @@ class App {
         this.userEmail = document.getElementById('sidebar-user-email');
         this.userAvatar = document.getElementById('sidebar-user-avatar');
         this.logoutBtn = document.getElementById('sidebar-logout-btn');
+        this.currentView = null;
+        this.lastAuth = null;
+        this.lastForwardedUser = null;
         
         this.init();
     }
@@ -47,10 +50,36 @@ class App {
         }
 
         // Subscribe to state changes
-        store.subscribe((state) => this.render(state));
+        store.subscribe((state, options = {}) => {
+            this.render(state, options);
+            this.forwardAuthToIframe(state.user);
+            syncReportIframe(state);
+        });
 
-        // Initialize Supabase Auth Session
-        await store.initAuth();
+        // 1. Instant Optimistic Render (0ms from cached session)
+        this.render(store.getState());
+
+        // 2. Validate/Refresh Supabase Auth Session in background
+        store.initAuth().then(user => {
+            this.forwardAuthToIframe(user);
+            syncReportIframe(store.getState());
+        }).catch(err => {
+            console.warn('initAuth background error:', err);
+        });
+
+        // Iframe auth & dashboard sync request listener
+        window.addEventListener('message', (e) => {
+            if (!e.data) return;
+            if (e.data.type === 'REQUEST_AUTH_USER') {
+                const currentUser = store.getState().user;
+                if (currentUser) {
+                    this.forwardAuthToIframe(currentUser, true);
+                }
+                syncReportIframe(store.getState());
+            } else if (e.data.type === 'REQUEST_DASHBOARD_SYNC') {
+                syncReportIframe(store.getState());
+            }
+        });
 
         // Global Paste Bridge: Forward clipboard images to active Report Editor iframe
         window.addEventListener('paste', (e) => {
@@ -81,10 +110,23 @@ class App {
                 }
             }
         });
-
     }
 
-    render(state) {
+    forwardAuthToIframe(user, force = false) {
+        if (!user) return;
+        const iframe = document.getElementById('report-editor-iframe') || document.querySelector('iframe');
+        if (iframe && iframe.contentWindow) {
+            const userIdentifier = user.id || user.email;
+            if (!force && this.lastForwardedUser === userIdentifier) return;
+            this.lastForwardedUser = userIdentifier;
+            iframe.contentWindow.postMessage({
+                type: 'SYNC_AUTH_USER',
+                user: { id: user.id, email: user.email }
+            }, '*');
+        }
+    }
+
+    render(state, options = {}) {
         // Check if user is authenticated
         const isAuthenticated = state.isAuthenticated;
         
@@ -130,25 +172,66 @@ class App {
             this.mainContent.classList.toggle('in-report-view', isReportView);
         }
 
+        const viewChanged = this.currentView !== state.activeView;
+        const authChanged = this.lastAuth !== isAuthenticated;
+        this.currentView = state.activeView;
+        this.lastAuth = isAuthenticated;
+
+        // 1. NEVER recreate the report iframe if already mounted on 'report' view
+        if (isReportView && !viewChanged && !authChanged) {
+            syncReportIframe(state);
+            return;
+        }
+
+        // 2. Skip DOM rebuild for silent background persistence (e.g. debounced input saves)
+        if (options && options.silent && !viewChanged && !authChanged) {
+            return;
+        }
+
+        const prevScrollTop = this.mainContent ? this.mainContent.scrollTop : 0;
+
         // Clear main content
         this.mainContent.innerHTML = '';
 
-        // Render appropriate module
-        switch (state.activeView) {
-            case 'macro':
-                this.mainContent.appendChild(renderMacroDashboard(state));
-                break;
-            case 'entry':
-                this.mainContent.appendChild(renderAntiFomoForm(state));
-                break;
-            case 'tracker':
-                this.mainContent.appendChild(renderCalendarGrid(state));
-                break;
-            case 'report':
-                this.mainContent.appendChild(renderReportBuilder(state));
-                break;
-            default:
-                this.mainContent.innerHTML = '<h2>Module non trouvé</h2>';
+        // Render appropriate module safely with try/catch
+        try {
+            let mountedEl = null;
+            switch (state.activeView) {
+                case 'macro':
+                    mountedEl = renderMacroDashboard(state);
+                    break;
+                case 'entry':
+                    mountedEl = renderAntiFomoForm(state);
+                    break;
+                case 'tracker':
+                    mountedEl = renderCalendarGrid(state);
+                    break;
+                case 'report':
+                    mountedEl = renderReportBuilder(state);
+                    break;
+                default: {
+                    const fallback = document.createElement('div');
+                    fallback.innerHTML = '<h2>Module non trouvé</h2>';
+                    mountedEl = fallback;
+                }
+            }
+            if (mountedEl && this.mainContent) {
+                this.mainContent.appendChild(mountedEl);
+            }
+        } catch (err) {
+            console.error(`[App.render] Erreur lors du montage de la vue "${state.activeView}":`, err, err?.stack);
+            if (this.mainContent) {
+                this.mainContent.innerHTML = `
+                    <div class="card" style="border: 1px solid var(--color-loss); padding: 24px;">
+                        <h3 style="color: var(--color-loss);">Erreur de rendu (${state.activeView})</h3>
+                        <pre class="mono-text" style="color: var(--text-secondary); margin-top: 8px; white-space: pre-wrap;">${err?.message || String(err)}</pre>
+                    </div>
+                `;
+            }
+        }
+
+        if (!viewChanged && this.mainContent) {
+            this.mainContent.scrollTop = prevScrollTop;
         }
     }
 }

@@ -132,7 +132,11 @@ export function renderAuthView(onSuccess) {
             }
         } catch (err) {
             console.error(err);
-            showMessage(err.message || 'Erreur lors de l\'authentification.');
+            const isNetworkErr = err.message === 'Failed to fetch' || (err.message && err.message.toLowerCase().includes('fetch'));
+            const userMsg = isNetworkErr
+                ? 'Le serveur Supabase ne répond pas (base de données Unhealthy / déconnectée). Redémarrez le projet sur Supabase ou utilisez le Mode Démo.'
+                : (err.message || 'Erreur lors de l\'authentification.');
+            showMessage(userMsg);
         } finally {
             btnText.style.display = 'inline-block';
             spinner.style.display = 'none';
@@ -141,7 +145,11 @@ export function renderAuthView(onSuccess) {
     });
 
     guestBtn.addEventListener('click', () => {
-        store.setUser({ email: 'invite@demo.local', isGuest: true });
+        const guestUser = { email: 'invite@demo.local', isGuest: true };
+        try {
+            localStorage.setItem('app_guest_session', JSON.stringify(guestUser));
+        } catch (e) {}
+        store.setUser(guestUser);
         if (onSuccess) onSuccess(store.getState().user);
     });
 

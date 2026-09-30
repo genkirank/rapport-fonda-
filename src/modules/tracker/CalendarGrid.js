@@ -1,11 +1,13 @@
-import { calculateAggregates, filterTrades } from '../../utils/calculations.js';
+import { calculateAggregates, filterTrades, isTradeClosed, INITIAL_CAPITAL } from '../../utils/calculations.js';
 import { store } from '../../state/store.js';
+import { openCloseTradeModal, showAppToast } from '../entry/CloseTradeModal.js';
 
 let currentFilters = {
     environment: 'Tous',
     period: 'Tout',
     strategy: 'Toutes',
-    session: 'Toutes'
+    session: 'Toutes',
+    status: 'Tous'
 };
 
 let chartInstances = {};
@@ -13,99 +15,133 @@ let chartInstances = {};
 export function renderCalendarGrid(state) {
     const container = document.createElement('div');
     container.className = 'tracker-dashboard';
-    
+
     const journal = state.liveJournal || [];
     const filteredJournal = filterTrades(journal, currentFilters);
-    const stats = calculateAggregates(filteredJournal);
+    // Performance metrics & charts consume exclusively CLOSED trades matching the primary filters (ignoring status filter if user wants to inspect metrics, or using filtered CLOSED trades)
+    const closedFilteredJournal = filterTrades(journal, { ...currentFilters, status: 'Tous' }).filter(isTradeClosed);
+    const openFilteredCount = filterTrades(journal, { ...currentFilters, status: 'Tous' }).filter(t => !isTradeClosed(t)).length;
+    const stats = calculateAggregates(closedFilteredJournal, INITIAL_CAPITAL);
+    const mc = stats.macroCorrelation || {
+        alignedWins: 0, alignedTotal: 0, alignedPnl: 0, alignedWinRate: '0.0',
+        counterWins: 0, counterTotal: 0, counterPnl: 0, counterWinRate: '0.0',
+        neutralWins: 0, neutralTotal: 0, neutralPnl: 0, neutralWinRate: '0.0'
+    };
 
-    // Build the Calendar grid UI
-    let gridHTML = `<div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: var(--spacing-md);">`;
-    for (let i = 0; i < 28; i++) {
-        let bgClass = 'bg-tertiary'; 
-        let innerClass = '';
-        
-        if (filteredJournal.length > 0) {
-            const trade = filteredJournal[i % filteredJournal.length];
-            if (trade && (i < filteredJournal.length)) {
-                if (trade.result === 'Win') {
-                    bgClass = 'bg-win';
-                    innerClass = 'text-win';
-                } else if (trade.result === 'Loss') {
-                    bgClass = 'bg-loss';
-                    innerClass = 'text-loss';
-                }
-            }
-        }
+    const currentBalance = (INITIAL_CAPITAL + Number(stats.totalPnl)).toFixed(2);
 
-        gridHTML += `
-            <div style="aspect-ratio: 1; background-color: ${bgClass === 'bg-tertiary' ? 'var(--bg-tertiary)' : `var(--${bgClass})`}; border-radius: var(--border-radius-sm); border: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 4px;">
-                <span style="font-size: 0.8rem; color: var(--text-secondary);">${i + 1}</span>
-                ${innerClass ? `<span class="${innerClass}" style="font-size: 1.2rem; font-weight: bold; margin-top: 4px;">●</span>` : ''}
-            </div>
+    // History Table (shows both OPEN and CLOSED trades, with "🏁 Clôturer le trade" action for OPEN trades)
+    let tableRows = filteredJournal.map((t, idx) => {
+        const closed = isTradeClosed(t);
+        const statusBadge = closed
+            ? `<span style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; background: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border-color);">⚪ CLOSED</span>`
+            : `<span style="display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 6px; font-size: 0.72rem; font-weight: 800; background: var(--color-win-transparent); color: var(--color-win); border: 1px solid rgba(0, 230, 118, 0.35);">🟢 OPEN</span>`;
+
+        const macroBadge = (t.macroDailyBias && t.macroDailyBias !== 'Non défini')
+            ? `<span style="font-size: 0.75rem; color: var(--text-secondary);">D1: <strong>${t.macroDailyBias}</strong> ${t.macroAligned === true ? '<span title="Aligné avec le biais Macro" style="color:var(--color-win); font-weight:800;">✓ Aligné</span>' : (t.macroAligned === false ? '<span title="Contre-tendance Macro" style="color:var(--color-loss); font-weight:800;">⚠ Contre</span>' : '')}</span>`
+            : `<span style="font-size: 0.75rem; color: var(--text-muted);">Non défini</span>`;
+
+        const lotBadge = t.lotSize
+            ? `<span class="mono-text" style="font-size: 0.75rem; color: var(--accent-primary); font-weight: 700;">${Number(t.lotSize).toFixed(2)} lot</span>`
+            : '';
+
+        const pnlCell = closed
+            ? `<span class="mono-text" style="color: ${Number(t.netDollar) > 0 ? 'var(--color-win)' : (Number(t.netDollar) < 0 ? 'var(--color-loss)' : 'var(--text-secondary)')}; font-weight: 800;">
+                ${Number(t.netDollar) >= 0 ? '+$' + Number(t.netDollar).toFixed(2) : '-$' + Math.abs(Number(t.netDollar)).toFixed(2)}
+                <span style="font-size: 0.75rem; opacity: 0.85;">(${Number(t.realizedR || 0) >= 0 ? '+' : ''}${Number(t.realizedR || 0).toFixed(2)}R)</span>
+               </span>`
+            : `<span class="mono-text" style="color: var(--text-secondary); font-size: 0.78rem;">Risque engagé : <strong>$${Number(t.risk || 0).toFixed(2)}</strong> (${Number(t.riskPercent || 0).toFixed(2)}%)</span>`;
+
+        return `
+            <tr style="border-bottom: 1px solid var(--border-color); transition: background 0.15s;">
+                <td style="padding: 12px 8px; color: var(--text-secondary); font-size: 0.8rem;">${new Date(t.entryDate).toLocaleDateString('fr-FR')}</td>
+                <td style="padding: 12px 8px;">${statusBadge}</td>
+                <td style="padding: 12px 8px; font-weight: 800; color: var(--text-primary);">
+                    ${t.ticker}
+                    <span style="font-size: 0.74rem; font-weight: 700; color: ${t.direction === 'Long' ? 'var(--color-win)' : 'var(--color-loss)'};">(${t.direction})</span>
+                    ${lotBadge ? `<div>${lotBadge}</div>` : ''}
+                </td>
+                <td style="padding: 12px 8px; color: var(--text-secondary); font-size: 0.8rem;">${t.environment || 'Live'} • ${t.timeFrame || '1H'}</td>
+                <td style="padding: 12px 8px; color: var(--text-primary); font-size: 0.8rem;">${t.strategy || '-'}</td>
+                <td style="padding: 12px 8px;">${macroBadge}</td>
+                <td style="padding: 12px 8px; color: var(--text-secondary); font-size: 0.8rem;">${t.psychology || '-'}</td>
+                <td style="padding: 12px 8px;">${pnlCell}</td>
+                <td style="padding: 12px 8px; display: flex; align-items: center; gap: 8px;">
+                    ${!closed ? `
+                        <button type="button" class="tracker-close-trade-btn" data-idx="${idx}" style="background: var(--color-win); color: #052623; padding: 6px 10px; font-size: 0.74rem; font-weight: 800; border-radius: 6px; cursor: pointer; white-space: nowrap;">
+                            🏁 Clôturer le trade
+                        </button>
+                    ` : ''}
+                    <button type="button" class="delete-trade-btn" data-id="${t.tradeN ?? t.cloudId}" style="background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--color-loss); cursor: pointer; padding: 5px 8px; border-radius: 6px; font-size: 0.82rem;" title="Supprimer ce trade">🗑️</button>
+                </td>
+            </tr>
         `;
-    }
-    gridHTML += `</div>`;
-
-    // History Table
-    let tableRows = filteredJournal.map(t => `
-        <tr style="border-bottom: 1px solid var(--border-color);">
-            <td style="padding: 12px 8px;">${new Date(t.entryDate).toLocaleDateString()}</td>
-            <td style="padding: 12px 8px; font-weight: bold;">${t.ticker}</td>
-            <td style="padding: 12px 8px;">${t.environment || '-'}</td>
-            <td style="padding: 12px 8px;">${t.strategy || '-'}</td>
-            <td style="padding: 12px 8px;">${t.session || '-'}</td>
-            <td style="padding: 12px 8px;">${t.grade || '-'}</td>
-            <td style="padding: 12px 8px;">${t.psychology || '-'}</td>
-            <td style="padding: 12px 8px; color: ${t.netDollar > 0 ? 'var(--color-win)' : 'var(--color-loss)'}; font-weight: bold;">$${t.netDollar.toFixed(2)} (${t.realizedR ? t.realizedR.toFixed(2) : 0}R)</td>
-            <td style="padding: 12px 8px;">
-                <button class="delete-trade-btn" data-id="${t.tradeN}" style="background: none; border: none; color: var(--color-loss); cursor: pointer; font-size: 1.2rem;" title="Delete Trade">🗑️</button>
-            </td>
-        </tr>
-    `).join('');
+    }).join('');
 
     container.innerHTML = `
         <div class="card-header" style="flex-direction: column; align-items: stretch; gap: var(--spacing-md);">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h2>Visual Tracker & Analytics</h2>
-                <button id="export-report" style="background-color: transparent; border: 1px solid var(--border-color); color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-                    Export Log
-                </button>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                <div>
+                    <h2>Visual Tracker & Institutional Analytics</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 4px;">
+                        Statistiques calculées exclusivement sur les positions clôturées (<strong>${closedFilteredJournal.length} CLOSED</strong>${openFilteredCount > 0 ? ` • <span style="color: var(--color-win); font-weight: 700;">${openFilteredCount} OPEN en cours</span>` : ''}).
+                    </p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); padding: 8px 14px; border-radius: 8px; font-size: 0.82rem;">
+                        <span style="color: var(--text-secondary);">Balance Courante :</span>
+                        <strong class="mono-text" style="color: ${Number(currentBalance) >= INITIAL_CAPITAL ? 'var(--color-win)' : 'var(--color-loss)'}; margin-left: 6px; font-size: 0.95rem;">$${currentBalance}</strong>
+                    </div>
+                    <button id="export-report" style="background-color: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); display: flex; align-items: center; gap: 8px; font-weight: 600;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                        Export Log (.md)
+                    </button>
+                </div>
             </div>
 
-            <!-- GLOBAL FILTERS BAR -->
-            <div style="display: flex; gap: var(--spacing-sm); background: var(--bg-tertiary); padding: var(--spacing-sm); border-radius: var(--border-radius-sm); flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 150px;">
-                    <label style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">Environment</label>
-                    <select id="filter-env" class="filter-select" style="width: 100%; padding: 4px; background: var(--bg-secondary); border: 1px solid var(--border-color); color: white;">
+            <!-- GLOBAL FILTERS BAR (Uniform Dark Zinc Theme) -->
+            <div style="display: flex; gap: var(--spacing-md); background: var(--bg-secondary); border: 1px solid var(--border-color); padding: var(--spacing-md); border-radius: var(--border-radius-md); flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 135px;">
+                    <label style="font-size: 0.74rem; color: var(--text-secondary); display: block; margin-bottom: 6px; font-weight: 700; text-transform: uppercase;">Statut</label>
+                    <select id="filter-status" class="filter-select" style="width: 100%; padding: 8px 10px; background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary); font-weight: 600;">
+                        <option value="Tous" ${currentFilters.status === 'Tous' ? 'selected' : ''}>Tous (OPEN & CLOSED)</option>
+                        <option value="OPEN" ${currentFilters.status === 'OPEN' ? 'selected' : ''}>🟢 OPEN uniquement</option>
+                        <option value="CLOSED" ${currentFilters.status === 'CLOSED' ? 'selected' : ''}>⚪ CLOSED uniquement</option>
+                    </select>
+                </div>
+                <div style="flex: 1; min-width: 135px;">
+                    <label style="font-size: 0.74rem; color: var(--text-secondary); display: block; margin-bottom: 6px; font-weight: 700; text-transform: uppercase;">Environment</label>
+                    <select id="filter-env" class="filter-select" style="width: 100%; padding: 8px 10px; background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary); font-weight: 600;">
                         <option value="Tous" ${currentFilters.environment === 'Tous' ? 'selected' : ''}>Tous</option>
                         <option value="Live" ${currentFilters.environment === 'Live' ? 'selected' : ''}>Live</option>
                         <option value="Demo" ${currentFilters.environment === 'Demo' ? 'selected' : ''}>Demo</option>
                         <option value="Backtest" ${currentFilters.environment === 'Backtest' ? 'selected' : ''}>Backtest</option>
                     </select>
                 </div>
-                <div style="flex: 1; min-width: 150px;">
-                    <label style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">Period</label>
-                    <select id="filter-period" class="filter-select" style="width: 100%; padding: 4px; background: var(--bg-secondary); border: 1px solid var(--border-color); color: white;">
+                <div style="flex: 1; min-width: 135px;">
+                    <label style="font-size: 0.74rem; color: var(--text-secondary); display: block; margin-bottom: 6px; font-weight: 700; text-transform: uppercase;">Période</label>
+                    <select id="filter-period" class="filter-select" style="width: 100%; padding: 8px 10px; background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary); font-weight: 600;">
                         <option value="Tout" ${currentFilters.period === 'Tout' ? 'selected' : ''}>Tout</option>
                         <option value="Ce Mois" ${currentFilters.period === 'Ce Mois' ? 'selected' : ''}>Ce Mois</option>
                         <option value="Cette Semaine" ${currentFilters.period === 'Cette Semaine' ? 'selected' : ''}>Cette Semaine</option>
                     </select>
                 </div>
-                <div style="flex: 1; min-width: 150px;">
-                    <label style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">Strategy</label>
-                    <select id="filter-strategy" class="filter-select" style="width: 100%; padding: 4px; background: var(--bg-secondary); border: 1px solid var(--border-color); color: white;">
+                <div style="flex: 1; min-width: 135px;">
+                    <label style="font-size: 0.74rem; color: var(--text-secondary); display: block; margin-bottom: 6px; font-weight: 700; text-transform: uppercase;">Stratégie</label>
+                    <select id="filter-strategy" class="filter-select" style="width: 100%; padding: 8px 10px; background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary); font-weight: 600;">
                         <option value="Toutes" ${currentFilters.strategy === 'Toutes' ? 'selected' : ''}>Toutes</option>
                         <option value="Trend Continuation" ${currentFilters.strategy === 'Trend Continuation' ? 'selected' : ''}>Trend Cont.</option>
                         <option value="Supply & Demand Zone" ${currentFilters.strategy === 'Supply & Demand Zone' ? 'selected' : ''}>Supply/Demand</option>
                         <option value="Liquidity Sweep / SFP" ${currentFilters.strategy === 'Liquidity Sweep / SFP' ? 'selected' : ''}>SFP</option>
                         <option value="Breakout & Retest" ${currentFilters.strategy === 'Breakout & Retest' ? 'selected' : ''}>Breakout</option>
                         <option value="Range Fade / Reversal" ${currentFilters.strategy === 'Range Fade / Reversal' ? 'selected' : ''}>Reversal</option>
+                        <option value="News Catalyst" ${currentFilters.strategy === 'News Catalyst' ? 'selected' : ''}>News Catalyst</option>
+                        <option value="Autre / Custom" ${currentFilters.strategy === 'Autre / Custom' ? 'selected' : ''}>Autre / Custom</option>
                     </select>
                 </div>
-                <div style="flex: 1; min-width: 150px;">
-                    <label style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">Session</label>
-                    <select id="filter-session" class="filter-select" style="width: 100%; padding: 4px; background: var(--bg-secondary); border: 1px solid var(--border-color); color: white;">
+                <div style="flex: 1; min-width: 135px;">
+                    <label style="font-size: 0.74rem; color: var(--text-secondary); display: block; margin-bottom: 6px; font-weight: 700; text-transform: uppercase;">Session</label>
+                    <select id="filter-session" class="filter-select" style="width: 100%; padding: 8px 10px; background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary); font-weight: 600;">
                         <option value="Toutes" ${currentFilters.session === 'Toutes' ? 'selected' : ''}>Toutes</option>
                         <option value="Asia" ${currentFilters.session === 'Asia' ? 'selected' : ''}>Asia</option>
                         <option value="London" ${currentFilters.session === 'London' ? 'selected' : ''}>London</option>
@@ -115,87 +151,159 @@ export function renderCalendarGrid(state) {
                 </div>
             </div>
         </div>
-        
-        <!-- Key Metrics -->
-        <div class="grid-layout" style="margin-bottom: var(--spacing-lg); grid-template-columns: repeat(6, 1fr);">
-            <div class="card-dark" style="text-align: center; padding: 12px;">
-                <div style="color: rgba(255,255,255,0.6); font-size: 0.8rem; margin-bottom: 4px;">Win Rate</div>
-                <div style="font-size: 1.5rem; font-weight: bold; color: ${stats.winRate >= 50 ? 'var(--color-win)' : 'white'};">${stats.winRate}%</div>
+
+        <!-- 1. INSTITUTIONAL KEY METRICS (CLOSED Trades Only) -->
+        <div class="grid-layout" style="margin-bottom: var(--spacing-lg); grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: var(--spacing-md);">
+            <div class="card" style="text-align: center; padding: 16px;">
+                <div style="color: var(--text-secondary); font-size: 0.74rem; text-transform: uppercase; font-weight: 700; margin-bottom: 6px;">Win Rate</div>
+                <div class="mono-text" style="font-size: 1.45rem; font-weight: 800; color: ${Number(stats.winRate) >= 50 ? 'var(--color-win)' : 'var(--text-primary)'};">${stats.winRate}%</div>
             </div>
-            <div class="card-dark" style="text-align: center; padding: 12px;">
-                <div style="color: rgba(255,255,255,0.6); font-size: 0.8rem; margin-bottom: 4px;">Total P&L</div>
-                <div style="font-size: 1.5rem; font-weight: bold; color: ${stats.totalPnl >= 0 ? 'var(--color-win)' : 'var(--color-loss)'};">$${stats.totalPnl}</div>
+            <div class="card" style="text-align: center; padding: 16px;">
+                <div style="color: var(--text-secondary); font-size: 0.74rem; text-transform: uppercase; font-weight: 700; margin-bottom: 6px;">Total P&L (Net)</div>
+                <div class="mono-text" style="font-size: 1.45rem; font-weight: 800; color: ${Number(stats.totalPnl) >= 0 ? 'var(--color-win)' : 'var(--color-loss)'};">${Number(stats.totalPnl) >= 0 ? '+$' + stats.totalPnl : '-$' + Math.abs(Number(stats.totalPnl)).toFixed(2)}</div>
             </div>
-            <div class="card-dark" style="text-align: center; padding: 12px;">
-                <div style="color: rgba(255,255,255,0.6); font-size: 0.8rem; margin-bottom: 4px;">Max Drawdown</div>
-                <div style="font-size: 1.5rem; font-weight: bold; color: var(--color-loss);">${stats.maxDrawdown}%</div>
+            <div class="card" style="text-align: center; padding: 16px;">
+                <div style="color: var(--text-secondary); font-size: 0.74rem; text-transform: uppercase; font-weight: 700; margin-bottom: 6px;">Profit Factor</div>
+                <div class="mono-text" style="font-size: 1.45rem; font-weight: 800; color: ${Number(stats.profitFactor) >= 1.5 ? 'var(--color-win)' : 'var(--text-primary)'};">${stats.profitFactor}</div>
             </div>
-            <div class="card-dark" style="text-align: center; padding: 12px;">
-                <div style="color: rgba(255,255,255,0.6); font-size: 0.8rem; margin-bottom: 4px;">Expectancy</div>
-                <div style="font-size: 1.5rem; font-weight: bold; color: ${stats.expectancy >= 0 ? 'var(--color-win)' : 'var(--color-loss)'};">$${stats.expectancy}</div>
+            <div class="card" style="text-align: center; padding: 16px;">
+                <div style="color: var(--text-secondary); font-size: 0.74rem; text-transform: uppercase; font-weight: 700; margin-bottom: 6px;">Expectancy ($ / R)</div>
+                <div class="mono-text" style="font-size: 1.25rem; font-weight: 800; color: ${Number(stats.expectancy) >= 0 ? 'var(--color-win)' : 'var(--color-loss)'};">
+                    $${stats.expectancy} <span style="font-size: 0.85rem; color: var(--text-secondary);">(${Number(stats.expectancyR) >= 0 ? '+' : ''}${stats.expectancyR}R)</span>
+                </div>
             </div>
-            <div class="card-dark" style="text-align: center; padding: 12px;">
-                <div style="color: rgba(255,255,255,0.6); font-size: 0.8rem; margin-bottom: 4px;">Profit Factor</div>
-                <div style="font-size: 1.5rem; font-weight: bold; color: ${stats.profitFactor >= 1.5 ? 'var(--color-win)' : 'white'};">${stats.profitFactor}</div>
+            <div class="card" style="text-align: center; padding: 16px;">
+                <div style="color: var(--text-secondary); font-size: 0.74rem; text-transform: uppercase; font-weight: 700; margin-bottom: 6px;">Max Drawdown</div>
+                <div class="mono-text" style="font-size: 1.45rem; font-weight: 800; color: var(--color-loss);">${stats.maxDrawdown}%</div>
             </div>
-            <div class="card-dark" style="text-align: center; padding: 12px;">
-                <div style="color: rgba(255,255,255,0.6); font-size: 0.8rem; margin-bottom: 4px;">Total Trades</div>
-                <div style="font-size: 1.5rem; font-weight: bold; color: white;">${stats.totalTrades}</div>
+            <div class="card" style="text-align: center; padding: 16px;">
+                <div style="color: var(--text-secondary); font-size: 0.74rem; text-transform: uppercase; font-weight: 700; margin-bottom: 6px;">Total Trades Clôturés</div>
+                <div class="mono-text" style="font-size: 1.45rem; font-weight: 800; color: var(--text-primary);">${stats.totalTrades}</div>
             </div>
         </div>
 
-        <!-- Charts Grid 2x2 -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md); margin-bottom: var(--spacing-lg);">
+        <!-- 2. REAL EQUITY CURVE & MACRO CORRELATION ANALYSIS -->
+        <div class="grid-layout" style="grid-template-columns: 2fr 1fr; gap: var(--spacing-lg); margin-bottom: var(--spacing-lg);">
+            <!-- Real Equity Curve Line Chart -->
+            <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                    <div>
+                        <h3 style="margin-bottom: 2px;">Courbe d'Équité Réelle (Equity Curve)</h3>
+                        <p style="font-size: 0.78rem; color: var(--text-secondary); margin: 0;">Évolution de la balance trade après trade (Capital initial : $${INITIAL_CAPITAL.toLocaleString('en-US')})</p>
+                    </div>
+                    <span class="mono-text" style="font-size: 0.85rem; padding: 4px 10px; border-radius: 6px; background: var(--bg-tertiary); border: 1px solid var(--border-color); color: ${Number(stats.totalPnl) >= 0 ? 'var(--color-win)' : 'var(--color-loss)'}; font-weight: 800;">
+                        $${currentBalance}
+                    </span>
+                </div>
+                <div style="position: relative; width: 100%; height: 260px;">
+                    <canvas id="chart-equity-curve"></canvas>
+                </div>
+            </div>
+
+            <!-- Macro Correlation Analysis Card -->
+            <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <h3 style="margin-bottom: 4px;">Corrélation Biais Macro vs Performance</h3>
+                    <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 16px;">
+                        Comparaison des trades pris dans le sens de la Watchlist Macro vs Contre-tendance.
+                    </p>
+
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <!-- Aligned with Macro -->
+                        <div style="padding: 12px; border-radius: 8px; background: rgba(0, 230, 118, 0.07); border: 1px solid rgba(0, 230, 118, 0.28);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                <span style="font-size: 0.8rem; font-weight: 800; color: var(--color-win);">🟢 Aligné au Biais Macro</span>
+                                <span class="mono-text" style="font-size: 1rem; font-weight: 800; color: var(--color-win);">${mc.alignedWinRate}% WR</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.76rem; color: var(--text-secondary);">
+                                <span>${mc.alignedWins} Wins / ${mc.alignedTotal} Trades</span>
+                                <span class="mono-text" style="font-weight: 700; color: ${mc.alignedPnl >= 0 ? 'var(--color-win)' : 'var(--color-loss)'};">
+                                    ${mc.alignedPnl >= 0 ? '+$' + mc.alignedPnl.toFixed(2) : '-$' + Math.abs(mc.alignedPnl).toFixed(2)}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Counter-trend Macro -->
+                        <div style="padding: 12px; border-radius: 8px; background: rgba(255, 82, 82, 0.07); border: 1px solid rgba(255, 82, 82, 0.28);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                <span style="font-size: 0.8rem; font-weight: 800; color: var(--color-loss);">🔴 Contre-Tendance Macro</span>
+                                <span class="mono-text" style="font-size: 1rem; font-weight: 800; color: var(--color-loss);">${mc.counterWinRate}% WR</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.76rem; color: var(--text-secondary);">
+                                <span>${mc.counterWins} Wins / ${mc.counterTotal} Trades</span>
+                                <span class="mono-text" style="font-weight: 700; color: ${mc.counterPnl >= 0 ? 'var(--color-win)' : 'var(--color-loss)'};">
+                                    ${mc.counterPnl >= 0 ? '+$' + mc.counterPnl.toFixed(2) : '-$' + Math.abs(mc.counterPnl).toFixed(2)}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Unspecified / Neutral -->
+                        <div style="padding: 10px 12px; border-radius: 8px; background: var(--bg-tertiary); border: 1px solid var(--border-color);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-size: 0.78rem; color: var(--text-secondary);">⚪ Sans biais / Neutre (${mc.neutralTotal})</span>
+                                <span class="mono-text" style="font-size: 0.82rem; font-weight: 700; color: var(--text-primary);">${mc.neutralWinRate}% WR</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-color); font-size: 0.75rem; color: var(--text-secondary);">
+                    💡 Armez vos setups depuis <strong>Macro Insights</strong> pour traquer automatiquement l'alignement D1/H4.
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. BREAKDOWN CHARTS GRID (4 Doughnuts) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--spacing-md); margin-bottom: var(--spacing-lg);">
             <div class="card" style="padding: var(--spacing-md); display: flex; flex-direction: column; align-items: center;">
-                <h3 style="font-size: 0.9rem; margin-bottom: 12px; color: var(--text-secondary);">Win Rate par Stratégie</h3>
-                <div style="position: relative; width: 200px; height: 200px;">
+                <h3 style="font-size: 0.88rem; margin-bottom: 12px; color: var(--text-secondary);">Win Rate par Stratégie</h3>
+                <div style="position: relative; width: 195px; height: 195px;">
                     <canvas id="chart-strategy"></canvas>
                 </div>
             </div>
             <div class="card" style="padding: var(--spacing-md); display: flex; flex-direction: column; align-items: center;">
-                <h3 style="font-size: 0.9rem; margin-bottom: 12px; color: var(--text-secondary);">Performance par Session</h3>
-                <div style="position: relative; width: 200px; height: 200px;">
+                <h3 style="font-size: 0.88rem; margin-bottom: 12px; color: var(--text-secondary);">PnL Net par Session ($)</h3>
+                <div style="position: relative; width: 195px; height: 195px;">
                     <canvas id="chart-session"></canvas>
                 </div>
             </div>
             <div class="card" style="padding: var(--spacing-md); display: flex; flex-direction: column; align-items: center;">
-                <h3 style="font-size: 0.9rem; margin-bottom: 12px; color: var(--text-secondary);">Discipline & Psychologie</h3>
-                <div style="position: relative; width: 200px; height: 200px;">
+                <h3 style="font-size: 0.88rem; margin-bottom: 12px; color: var(--text-secondary);">Discipline & Psychologie</h3>
+                <div style="position: relative; width: 195px; height: 195px;">
                     <canvas id="chart-psycho"></canvas>
                 </div>
             </div>
             <div class="card" style="padding: var(--spacing-md); display: flex; flex-direction: column; align-items: center;">
-                <h3 style="font-size: 0.9rem; margin-bottom: 12px; color: var(--text-secondary);">Win Rate par Grade</h3>
-                <div style="position: relative; width: 200px; height: 200px;">
+                <h3 style="font-size: 0.88rem; margin-bottom: 12px; color: var(--text-secondary);">Win Rate par Grade</h3>
+                <div style="position: relative; width: 195px; height: 195px;">
                     <canvas id="chart-grade"></canvas>
                 </div>
             </div>
         </div>
 
-        <div class="card" style="margin-bottom: var(--spacing-lg);">
-            <h3>P&L Calendar Map</h3>
-            ${gridHTML}
-        </div>
-
+        <!-- 4. REACTIVE TRADE HISTORY TABLE -->
         <div class="card">
-            <h3>Trade History</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                <h3>Journal des Positions (🟢 OPEN & ⚪ CLOSED)</h3>
+                <span style="font-size: 0.78rem; color: var(--text-secondary);">${filteredJournal.length} position(s) affichée(s)</span>
+            </div>
             <div style="overflow-x: auto; margin-top: var(--spacing-md);">
-                <table style="width: 100%; text-align: left; border-collapse: collapse; font-size: 0.9rem;">
+                <table style="width: 100%; text-align: left; border-collapse: collapse; font-size: 0.86rem;">
                     <thead>
-                        <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-secondary);">
+                        <tr style="border-bottom: 2px solid var(--border-color); color: var(--text-secondary); font-size: 0.75rem; text-transform: uppercase;">
                             <th style="padding: 12px 8px;">Date</th>
-                            <th style="padding: 12px 8px;">Ticker</th>
-                            <th style="padding: 12px 8px;">Env.</th>
+                            <th style="padding: 12px 8px;">Statut</th>
+                            <th style="padding: 12px 8px;">Paire / Lot</th>
+                            <th style="padding: 12px 8px;">Compte / TF</th>
                             <th style="padding: 12px 8px;">Setup</th>
-                            <th style="padding: 12px 8px;">Session</th>
-                            <th style="padding: 12px 8px;">Grade</th>
-                            <th style="padding: 12px 8px;">Psychology</th>
-                            <th style="padding: 12px 8px;">PnL ($/R)</th>
+                            <th style="padding: 12px 8px;">Biais Macro</th>
+                            <th style="padding: 12px 8px;">Psychologie</th>
+                            <th style="padding: 12px 8px;">PnL ($ / R) ou Risque</th>
                             <th style="padding: 12px 8px;">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        ${filteredJournal.length > 0 ? tableRows : '<tr><td colspan="9" style="text-align:center; padding: 20px;">No trades match your filters.</td></tr>'}
+                        ${filteredJournal.length > 0 ? tableRows : '<tr><td colspan="9" style="text-align:center; padding: 28px; color: var(--text-secondary);">Aucun trade ne correspond aux filtres sélectionnés.</td></tr>'}
                     </tbody>
                 </table>
             </div>
@@ -209,13 +317,25 @@ export function renderCalendarGrid(state) {
         filterSelects.forEach(select => {
             select.addEventListener('change', () => {
                 currentFilters = {
+                    status: container.querySelector('#filter-status').value,
                     environment: container.querySelector('#filter-env').value,
                     period: container.querySelector('#filter-period').value,
                     strategy: container.querySelector('#filter-strategy').value,
                     session: container.querySelector('#filter-session').value
                 };
-                // Re-render the view with new filters
                 store.notify();
+            });
+        });
+
+        // Close OPEN trade buttons inside the table
+        const closeBtns = container.querySelectorAll('.tracker-close-trade-btn');
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const idx = parseInt(e.currentTarget.getAttribute('data-idx'), 10);
+                const trade = filteredJournal[idx];
+                if (trade) {
+                    openCloseTradeModal(trade);
+                }
             });
         });
 
@@ -223,43 +343,46 @@ export function renderCalendarGrid(state) {
         const deleteBtns = container.querySelectorAll('.delete-trade-btn');
         deleteBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const tradeId = parseInt(e.currentTarget.getAttribute('data-id'));
+                const rawId = e.currentTarget.getAttribute('data-id');
+                const tradeId = isNaN(Number(rawId)) ? rawId : Number(rawId);
                 if (confirm('Voulez-vous vraiment supprimer ce trade ?')) {
                     store.deleteTrade(tradeId);
+                    showAppToast('Trade supprimé.');
                 }
             });
         });
 
-        // Export Logic
+        // Export Logic (CLOSED trades)
         const exportBtn = container.querySelector('#export-report');
         if (exportBtn) {
             exportBtn.addEventListener('click', () => {
-                if (filteredJournal.length === 0) {
-                    alert("No trades match the current filters to export.");
+                if (closedFilteredJournal.length === 0) {
+                    showAppToast("Aucun trade clôturé à exporter.", false);
                     return;
                 }
 
-                let mdContent = `# Trading Analytics Report\n\n`;
-                mdContent += `## Stats Overview (Filtered)\n`;
+                let mdContent = `# Kanzoto Institutional Trading Analytics Report\n\n`;
+                mdContent += `## Stats Overview (Closed Trades)\n`;
                 mdContent += `- **Win Rate**: ${stats.winRate}%\n`;
                 mdContent += `- **Total P&L**: $${stats.totalPnl}\n`;
-                mdContent += `- **Expectancy**: $${stats.expectancy}\n`;
+                mdContent += `- **Expectancy**: $${stats.expectancy} (${stats.expectancyR}R)\n`;
                 mdContent += `- **Profit Factor**: ${stats.profitFactor}\n`;
-                mdContent += `- **Total Trades**: ${stats.totalTrades}\n\n`;
+                mdContent += `- **Max Drawdown**: ${stats.maxDrawdown}%\n`;
+                mdContent += `- **Total Closed Trades**: ${stats.totalTrades}\n\n`;
                 mdContent += `## Trade Logs\n\n`;
-                mdContent += `| Date | Ticker | Env | Strategy | Session | Grade | Net $ |\n`;
-                mdContent += `|---|---|---|---|---|---|---|\n`;
-                
-                filteredJournal.forEach(t => {
-                    const dateStr = new Date(t.entryDate).toLocaleDateString();
-                    mdContent += `| ${dateStr} | ${t.ticker} | ${t.environment} | ${t.strategy} | ${t.session} | ${t.grade} | $${t.netDollar.toFixed(2)} |\n`;
+                mdContent += `| Date | Ticker | Direction | Lots | Env | Strategy | Macro Bias | Net $ | R |\n`;
+                mdContent += `|---|---|---|---|---|---|---|---|---|\n`;
+
+                closedFilteredJournal.forEach(t => {
+                    const dateStr = new Date(t.entryDate).toLocaleDateString('fr-FR');
+                    mdContent += `| ${dateStr} | ${t.ticker} | ${t.direction} | ${t.lotSize || '-'} | ${t.environment} | ${t.strategy} | ${t.macroDailyBias || '-'} | $${Number(t.netDollar).toFixed(2)} | ${Number(t.realizedR || 0).toFixed(2)}R |\n`;
                 });
 
                 const blob = new Blob([mdContent], { type: 'text/markdown' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `Trading_Report_${new Date().toISOString().split('T')[0]}.md`;
+                a.download = `Kanzoto_Trading_Report_${new Date().toISOString().split('T')[0]}.md`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -267,34 +390,92 @@ export function renderCalendarGrid(state) {
             });
         }
 
-        // Draw Charts
-        drawCharts(filteredJournal);
+        // Draw Equity Curve + Breakdown Charts exclusively from CLOSED trades
+        drawCharts(closedFilteredJournal, stats.equityPoints);
     }, 0);
 
     return container;
 }
 
-// Chart drawing logic
-function drawCharts(trades) {
+function drawCharts(trades, equityPoints) {
     if (typeof Chart === 'undefined') return;
 
-    // Helper: destroy old instances
     Object.values(chartInstances).forEach(chart => chart.destroy());
     chartInstances = {};
+
+    // 0. Real Equity Curve (Line Chart)
+    const eqCtx = document.getElementById('chart-equity-curve');
+    if (eqCtx && Array.isArray(equityPoints)) {
+        const labels = equityPoints.map(p => p.label);
+        const balances = equityPoints.map(p => p.balance);
+        const finalBalance = balances[balances.length - 1] ?? INITIAL_CAPITAL;
+        const lineColor = finalBalance >= INITIAL_CAPITAL ? '#00E676' : '#FF5252';
+        const fillColor = finalBalance >= INITIAL_CAPITAL ? 'rgba(0, 230, 118, 0.12)' : 'rgba(255, 82, 82, 0.12)';
+
+        chartInstances['chart-equity-curve'] = new Chart(eqCtx, {
+            type: 'line',
+            data: {
+                labels,
+                datasets: [{
+                    label: 'Balance ($)',
+                    data: balances,
+                    borderColor: lineColor,
+                    backgroundColor: fillColor,
+                    borderWidth: 2.5,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    pointBackgroundColor: lineColor,
+                    fill: true,
+                    tension: 0.25
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => {
+                                const pt = equityPoints[ctx.dataIndex];
+                                if (!pt || ctx.dataIndex === 0) return `Capital Initial : $${INITIAL_CAPITAL}`;
+                                const sign = pt.pnl >= 0 ? '+' : '-';
+                                return `${pt.ticker} : $${pt.balance.toFixed(2)} (${sign}$${Math.abs(pt.pnl).toFixed(2)} / ${pt.r.toFixed(2)}R)`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: { color: '#a1a1aa', font: { size: 11 } },
+                        grid: { color: 'rgba(255,255,255,0.04)' }
+                    },
+                    y: {
+                        ticks: {
+                            color: '#a1a1aa',
+                            font: { size: 11 },
+                            callback: (val) => '$' + Number(val).toLocaleString('en-US')
+                        },
+                        grid: { color: 'rgba(255,255,255,0.06)' }
+                    }
+                }
+            }
+        });
+    }
 
     // 1. Win Rate by Strategy
     const stratStats = {};
     trades.forEach(t => {
         const s = t.strategy || 'Unknown';
         if (!stratStats[s]) stratStats[s] = { w: 0, l: 0 };
-        if (t.result === 'Win') stratStats[s].w++;
-        else if (t.result === 'Loss') stratStats[s].l++;
+        if (t.result === 'Win' || Number(t.netDollar) > 0) stratStats[s].w++;
+        else if (t.result === 'Loss' || Number(t.netDollar) < 0) stratStats[s].l++;
     });
-    
+
     const stratLabels = Object.keys(stratStats);
     const stratData = stratLabels.map(s => {
         const total = stratStats[s].w + stratStats[s].l;
-        return total > 0 ? (stratStats[s].w / total) * 100 : 0;
+        return total > 0 ? Number(((stratStats[s].w / total) * 100).toFixed(1)) : 0;
     });
 
     createDoughnutChart('chart-strategy', stratLabels, stratData, 'Win Rate (%)');
@@ -304,7 +485,7 @@ function drawCharts(trades) {
     trades.forEach(t => {
         const s = t.session || 'Unknown';
         if (!sessionStats[s]) sessionStats[s] = 0;
-        sessionStats[s] += t.netDollar;
+        sessionStats[s] += Number(t.netDollar) || 0;
     });
 
     createDoughnutChart('chart-session', Object.keys(sessionStats), Object.values(sessionStats), 'PnL ($)');
@@ -324,14 +505,14 @@ function drawCharts(trades) {
     trades.forEach(t => {
         const g = t.grade || 'Unknown';
         if (!gradeStats[g]) gradeStats[g] = { w: 0, l: 0 };
-        if (t.result === 'Win') gradeStats[g].w++;
-        else if (t.result === 'Loss') gradeStats[g].l++;
+        if (t.result === 'Win' || Number(t.netDollar) > 0) gradeStats[g].w++;
+        else if (t.result === 'Loss' || Number(t.netDollar) < 0) gradeStats[g].l++;
     });
 
     const gradeLabels = Object.keys(gradeStats);
     const gradeData = gradeLabels.map(g => {
         const total = gradeStats[g].w + gradeStats[g].l;
-        return total > 0 ? (gradeStats[g].w / total) * 100 : 0;
+        return total > 0 ? Number(((gradeStats[g].w / total) * 100).toFixed(1)) : 0;
     });
 
     createDoughnutChart('chart-grade', gradeLabels, gradeData, 'Win Rate (%)');
@@ -340,18 +521,24 @@ function drawCharts(trades) {
 function createDoughnutChart(canvasId, labels, data, label) {
     const ctx = document.getElementById(canvasId);
     if (!ctx) return;
-    
+
+    const hasData = labels.length > 0 && data.some(v => Math.abs(Number(v)) > 0);
+    const finalLabels = hasData ? labels : ['Aucune donnée'];
+    const finalData = hasData ? data.map(v => Math.abs(Number(v))) : [1];
+    const finalColors = hasData
+        ? ['#00BFA5', '#2962FF', '#00E676', '#FFD600', '#FF5252', '#AA00FF', '#00B8D4']
+        : ['#27272a'];
+
     chartInstances[canvasId] = new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: labels,
+            labels: finalLabels,
             datasets: [{
                 label: label,
-                data: data,
-                backgroundColor: [
-                    '#2962FF', '#00BFA5', '#FF3D00', '#FFD600', '#AA00FF', '#00B8D4', '#FF6D00'
-                ],
-                borderWidth: 0,
+                data: finalData,
+                backgroundColor: finalColors,
+                borderColor: '#121316',
+                borderWidth: 2,
                 hoverOffset: 4
             }]
         },
@@ -362,8 +549,8 @@ function createDoughnutChart(canvasId, labels, data, label) {
                 legend: {
                     position: 'bottom',
                     labels: {
-                        color: 'rgba(255, 255, 255, 0.7)',
-                        font: { size: 10 }
+                        color: '#a1a1aa',
+                        font: { size: 11 }
                     }
                 }
             }

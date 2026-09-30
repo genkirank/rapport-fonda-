@@ -1,6 +1,5 @@
--- ==============================================================================
 -- SCHEMA COMPLET SUPABASE POUR TRADING DASHBOARD & REPORT GENERATOR
--- Projet : https://njunspsbrwiyvegrqqpm.supabase.co
+-- Projet : https://axgemnwcpqwsotkxdmjb.supabase.co
 -- À coller dans : Supabase Dashboard -> SQL Editor -> New Query -> RUN
 -- ==============================================================================
 

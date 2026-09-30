@@ -1,20 +1,20 @@
 :root {
-  /* Colors - Light Theme Main */
-  --bg-primary: #F4F7F6;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #f0f2f5;
+  /* Colors - Uniform Zinc / Neutral Dark Theme */
+  --bg-primary: #09090b;
+  --bg-secondary: #121316;
+  --bg-tertiary: #18181b;
   
-  /* Text Colors - Light Theme */
-  --text-primary: #1f2937;
-  --text-secondary: #6b7280;
-  --text-muted: #9ca3af;
+  /* Text Colors - Dark Theme */
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
 
   /* Sidebar Eco-Dark Glassmorphism */
-  --sidebar-bg: rgba(7, 43, 40, 0.85); /* Deep dark green/teal */
-  --sidebar-text: #ffffff;
-  --sidebar-text-muted: rgba(255, 255, 255, 0.6);
-  --sidebar-active-bg: #ffffff;
-  --sidebar-active-text: #072b28;
+  --sidebar-bg: rgba(12, 16, 20, 0.92);
+  --sidebar-text: #f4f4f5;
+  --sidebar-text-muted: #a1a1aa;
+  --sidebar-active-bg: #00bfa5;
+  --sidebar-active-text: #052623;
 
   /* Accent Colors */
   --color-win: #00e676; /* Vibrant mint/neon green */
@@ -23,8 +23,8 @@
   --color-loss-transparent: rgba(255, 82, 82, 0.15);
   --color-accent: #00bfa5;
   
-  --border-color: #e5e7eb;
-  --border-color-dark: rgba(255, 255, 255, 0.1);
+  --border-color: #27272a;
+  --border-color-dark: rgba(255, 255, 255, 0.08);
 
   /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;

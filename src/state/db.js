@@ -86,6 +86,11 @@ export class Database {
         return this.get(STORAGE_KEYS.LIVE_JOURNAL) || [];
     }
 
+    saveLiveJournal(journal) {
+        this.set(STORAGE_KEYS.LIVE_JOURNAL, journal);
+        return journal;
+    }
+
     addLiveTrade(trade) {
         const journal = this.getLiveJournal();
         journal.push(trade);
@@ -93,9 +98,22 @@ export class Database {
         return journal;
     }
 
-    deleteLiveTrade(tradeN) {
+    updateLiveTrade(tradeId, updaterFnOrObj) {
         const journal = this.getLiveJournal();
-        const updatedJournal = journal.filter(t => t.tradeN !== tradeN);
+        const idx = journal.findIndex(t => t.tradeN === tradeId || (t.cloudId && t.cloudId === tradeId));
+        if (idx !== -1) {
+            const current = journal[idx];
+            journal[idx] = typeof updaterFnOrObj === 'function'
+                ? updaterFnOrObj(current)
+                : { ...current, ...updaterFnOrObj };
+            this.set(STORAGE_KEYS.LIVE_JOURNAL, journal);
+        }
+        return journal;
+    }
+
+    deleteLiveTrade(tradeId) {
+        const journal = this.getLiveJournal();
+        const updatedJournal = journal.filter(t => t.tradeN !== tradeId && t.cloudId !== tradeId);
         this.set(STORAGE_KEYS.LIVE_JOURNAL, updatedJournal);
         return updatedJournal;
     }
